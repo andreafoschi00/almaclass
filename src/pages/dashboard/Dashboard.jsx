@@ -1,10 +1,12 @@
 import React from 'react';
 import './dashboard.css';
+import { BasicCard } from '../../containers';
+
+import dashboardData from '../../data/Data';
 
 const Dashboard = () => {
   return (
-    <h1>Dashboard</h1>
-  )
+    dashboardData.map((element, key) => <BasicCard props={element} key={key}/>));
 }
 
 export default Dashboard
