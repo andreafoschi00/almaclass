@@ -5,7 +5,7 @@
     height: 100%;
     width: 20vw;
     background-color: #bb2e29;
-    transition: left 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
 
     &__logo {
         height: 100px;
@@ -73,14 +73,26 @@
     padding: 50px 0 0 10vw;
 
     .sidebar.close {
-        width: 5vw;
+        width: 70px;
 
         .sidebar__menu__item__text{
             display: none;
         }
     
         .sidebar__menu__item{
-            padding: 1rem 2vw;
+            padding: 1rem 1.5rem;
         }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .sidebar{
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .sidebar{
+        width: 100vw;
     }
 }

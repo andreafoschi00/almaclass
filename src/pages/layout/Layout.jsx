@@ -5,7 +5,7 @@ import { Sidebar } from './../../containers';
 import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
-  const [sidebarOpen, setSideBarOpen] = useState(false);
+  const [sidebarOpen, setSideBarOpen] = useState(true);
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
   };
