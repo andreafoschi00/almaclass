@@ -1,0 +1,99 @@
+.sidebar {
+	 position: fixed;
+	 top: 0;
+	 left: 0;
+	 height: 100%;
+	 width: 20vw;
+	 background-color: #bb2e29;
+	 transition: width 0.3s ease-in-out;
+}
+
+.sidebar__logo {
+	 height: 100px;
+	 color: #fff;
+	 font-size: 1.5rem;
+	 font-weight: 700;
+}
+
+.sidebar__toggle {
+	 margin: 1rem 0 0 1rem;
+	 padding: 5px;
+	 cursor: pointer;
+	 background-color: #6b0808;
+	 border: none;
+	 border-radius: 5px;
+}
+
+.sidebar__menu {
+	 position: relative;
+}
+
+.sidebar__menu__item {
+	 display: flex;
+	 align-items: center;
+	 place-content: flex-start;
+	 padding: 1rem 3rem;
+	 font-size: 1.25rem;
+	 font-weight: 500;
+	 color: #fff;
+	 transition: color 0.3s ease-in-out;
+}
+
+.sidebar__menu__item.active {
+	 color: #fff;
+}
+
+.sidebar__menu__item__icon {
+	 margin-right: 1rem;
+}
+
+.sidebar__menu__item__icon i {
+	 font-size: 1.75rem;
+}
+
+.sidebar__menu__indicator {
+	 position: absolute;
+	 top: 0;
+	 left: 50%;
+	 width: calc(100% - 40px);
+	 border-radius: 10px;
+	 background-color: #6b0808;
+	 z-index: -1;
+	 transform: translateX(-50%);
+	 transition: 0.3s ease-in-out;
+}
+
+.sidebar__toggle > svg {
+	 width: 30px;
+	 height: 30px;
+	 color: #fff;
+}
+
+.layout_container:has(.sidebar.close) {
+	 padding: 50px 0 0 10vw;
+}
+
+.layout_container:has(.sidebar.close) .sidebar.close {
+	 width: 70px;
+}
+
+.layout_container:has(.sidebar.close) .sidebar.close .sidebar__menu__item__text {
+	 display: none;
+}
+
+.layout_container:has(.sidebar.close) .sidebar.close .sidebar__menu__item {
+	 padding: 1rem 1.5rem;
+}
+
+@media screen and (max-width: 1024px) {
+	 .sidebar {
+		 width: 40vw;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	 .sidebar {
+		 width: 100vw;
+	}
+}
+ 

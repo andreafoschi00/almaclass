@@ -5,7 +5,7 @@ import { SiGoogleclassroom } from 'react-icons/si';
 import { GiTeacher, GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineRead } from 'react-icons/ai';
 
-import './sidebar.scss';
+import './sidebar.css';
 
 const sidebarNavItems = [
     {

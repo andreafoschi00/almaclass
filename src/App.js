@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Dashboard, Classroom, Teaching, Course, Layout, NoPage } from './pages'; 
 
-import './App.scss';
+import './App.css';
 
 const App = () => {
   return (
