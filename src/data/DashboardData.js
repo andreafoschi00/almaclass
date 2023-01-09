@@ -1,4 +1,4 @@
-let dashboardData = [
+const dashboardData = [
     {
         luogo: "AULA 2.12",
         insegnamento: "Informatica e diritto",

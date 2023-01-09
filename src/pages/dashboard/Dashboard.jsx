@@ -2,7 +2,7 @@ import React from 'react';
 import './dashboard.css';
 import { BasicCard } from '../../containers';
 
-import dashboardData from '../../data/Data';
+import dashboardData from '../../data/DashboardData';
 
 const Dashboard = () => {
   return (
