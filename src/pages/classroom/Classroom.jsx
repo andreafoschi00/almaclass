@@ -2,9 +2,10 @@ import React from 'react';
 import './classroom.css';
 
 import classroomData from '../../data/ClassroomData';
+import { Link } from 'react-router-dom';
 
-const classes = classroomData.filter((classroom) => classroom.tipo === "aula").map((classroom) => <li key={classroom.luogo}><a href='/clasroom/specific'>{classroom.luogo}</a></li>);
-const laboratories = classroomData.filter((classroom) => classroom.tipo === "lab").map((classroom) => <li key={classroom.luogo}><a href='/classroom/specific'>{classroom.luogo}</a></li>);
+const classes = classroomData.filter((classroom) => classroom.tipo === "aula").map((classroom) => <li key={classroom.id}><Link to={'/classroom/details/?id=' + classroom.id}>{classroom.luogo}</Link></li>);
+const laboratories = classroomData.filter((classroom) => classroom.tipo === "lab").map((classroom) => <li key={classroom.id}><Link to={'/classroom/details/?id=' + classroom.id}>{classroom.luogo}</Link></li>);
 
 const Classroom = () => {
   return (

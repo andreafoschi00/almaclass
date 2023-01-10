@@ -1,0 +1,162 @@
+.classroom_details_container{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bb2e29;
+    border-radius: 5px;
+    background-color: white;
+    width: 70vw;
+    padding: 2.5rem 2rem 0.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.classroom_details_table_container > table, .classroom_details_table_container th, .classroom_details_table_container td {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-collapse: separate;
+}
+
+.classroom_details_table_container th, .classroom_details_table_container td{
+    padding: 1rem 0.5rem;
+}
+
+td svg {
+    width: 24px;
+    height: 24px;
+}
+
+.classroom_details_buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    justify-content: center;
+    padding: 2.5rem 0;
+}
+
+.classroom_details_buttons > button {
+    background-color: #bb2e29;
+    color: white;
+    padding: 0.75rem 1.75rem;
+    font-size: 22px;
+    border-style: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.classroom_details_buttons > button:hover{
+    cursor: pointer;
+    background-color: #6b0808;
+}
+
+@media screen and (max-width: 1024px) {
+    .classroom_details_container{
+        width: 50vw;
+    }
+
+    .layout_container:has(.sidebar.close) .classroom_details_container {
+        width: 85vw;
+    }
+
+    .classroom_details_table_container th, .classroom_details_table_container td{
+        padding: 0.25rem 0.15rem;
+        font-size: 14px;
+    }
+
+    .classroom_details_buttons > button {
+        padding: 0.50rem 1.50rem;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .classroom_details_table_container th, .classroom_details_table_container td{
+        padding: 0.15rem 0.05rem;
+        font-size: 12px;
+    }
+
+    .classroom_details_buttons > button {
+        padding: 0.25rem 1.25rem;
+        font-size: 14px;
+    }
+
+    .classroom_details_buttons {
+        gap: 5rem;
+    }
+    
+}
+
+@media screen and (max-width: 425px) {
+    .classroom_details_container{
+        width: 66vw;
+        position: relative;
+        z-index: -1;
+        left: -20px;
+        padding: 1.5rem 0.25rem 1rem 0.25rem;
+    }
+    
+    .classroom_details_table_container th, .classroom_details_table_container td{
+        padding: 0.05rem 0.025rem;
+        font-size: 10px;
+    }
+
+    td svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .classroom_details_buttons > button {
+        padding: 0.25rem 1.25rem;
+        font-size: 14px;
+    }
+
+    .classroom_details_buttons {
+        gap: 3rem;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .classroom_details_container{
+        padding: 1rem 0.05rem 0.5rem 0.05rem;
+        width: 80vw;
+    }
+
+    .classroom_details_title {
+        font-size: 24px;
+    }
+
+    .classroom_details_description {
+        font-size: 20px;
+    }
+
+    .classroom_details_capacity {
+        font-size: 16px;
+    }
+
+    .classroom_details_table_container > table{
+        border-collapse: collapse;
+    }
+    
+    .classroom_details_table_container th, .classroom_details_table_container td{
+        padding: 0.05rem 0.025rem;
+        font-size: 10px;
+    }
+
+    .classroom_details_buttons {
+        gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .classroom_details_container{
+        position: static;
+        width: 70vw;
+    }
+
+    .classroom_details_table_container th, .classroom_details_table_container td{
+        padding: 0;
+        font-size: 9px;
+    }
+}
