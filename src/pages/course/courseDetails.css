@@ -1,0 +1,178 @@
+.course_details_container{
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--primary-color);
+    border-radius: 5px;
+    background-color: white;
+    width: 70vw;
+    padding: 2.5rem 2rem 0.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.layout_container:has(.sidebar.close) .course_details_container {
+    width: 85vw;
+}
+
+.course_details_table_container > table, .course_details_table_container th, .course_details_table_container td {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-collapse: separate;
+}
+
+.course_details_table_container th, .course_details_table_container td{
+    padding: 1rem 3rem;
+}
+
+td svg {
+    width: 24px;
+    height: 24px;
+}
+
+.course_details_buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    justify-content: center;
+    padding: 2.5rem 0;
+}
+
+.course_details_buttons > button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.75rem;
+    font-size: 22px;
+    border-style: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.course_details_buttons > button:hover{
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+@media screen and (max-width: 1024px) {
+    .course_details_container{
+        width: 50vw;
+    }
+
+    .layout_container:has(.sidebar.close) .course_details_container {
+        width: 85vw;
+    }
+
+    .course_details_table_container th, .course_details_table_container td{
+        padding: 0.25rem 0.15rem;
+        font-size: 14px;
+    }
+
+    .course_details_buttons > button {
+        padding: 0.50rem 1.50rem;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .course_details_table_container th, .course_details_table_container td{
+        padding: 0.15rem 0.05rem;
+        font-size: 12px;
+    }
+
+    .course_details_buttons > button {
+        padding: 0.25rem 1.25rem;
+        font-size: 14px;
+    }
+
+    .course_details_buttons {
+        gap: 5rem;
+    }
+    
+}
+
+@media screen and (max-width: 425px) {
+    .course_details_container{
+        width: 66vw;
+        position: relative;
+        z-index: -1;
+        left: -20px;
+        padding: 1.5rem 0.25rem 1rem 0.25rem;
+    }
+
+    .course_details_name {
+        font-size: 24px;
+    }
+
+    .course_details_type {
+        font-size: 20px;
+    }
+
+    .course_details_department, .course_details_coordinator, .course_details_language {
+        font-size: 16px;
+    }
+    
+    .course_details_table_container th, .course_details_table_container td{
+        padding: 0.05rem 0.025rem;
+        font-size: 10px;
+    }
+
+    td svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .course_details_buttons > button {
+        padding: 0.25rem 1.25rem;
+        font-size: 14px;
+    }
+
+    .course_details_buttons {
+        gap: 3rem;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .course_details_container{
+        padding: 1rem 0.05rem 0.5rem 0.05rem;
+        width: 80vw;
+    }
+
+    .course_details_title, .course_details_course {
+        font-size: 24px;
+    }
+
+    .course_details_description {
+        font-size: 20px;
+    }
+
+    .course_details_capacity {
+        font-size: 16px;
+    }
+
+    .course_details_table_container > table{
+        border-collapse: collapse;
+    }
+    
+    .course_details_table_container th, .course_details_table_container td{
+        padding: 0.05rem 0.025rem;
+        font-size: 10px;
+    }
+
+    .course_details_buttons {
+        gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .course_details_container{
+        position: static;
+        width: 70vw;
+    }
+
+    .course_details_table_container th, .course_details_table_container td{
+        padding: 0;
+        font-size: 9px;
+    }
+}

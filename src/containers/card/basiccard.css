@@ -1,8 +1,8 @@
-.toClassroom, .toTeaching {
+.toClassroom, .toTeaching, .toCourse {
     transition: 0.1s;
 }
 
-.toClassroom:hover, .toTeaching:hover {
+.toClassroom:hover, .toTeaching:hover, .toCourse:hover {
     color: var(--primary-color);
     text-decoration: underline;
 }

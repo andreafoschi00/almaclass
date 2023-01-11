@@ -14,7 +14,7 @@ const TeachingDetails = () => {
     return (
         <div className='teaching_details_container'>
             <h1 className='teaching_details_name'>{teaching.nome}</h1>
-            <h1 className='teaching_details_course'>Corso: {teaching.corso}</h1>
+            <h1 className='teaching_details_course'>Corso: <Link className='toCourse' to={'/course/details/?id=' + teaching.idCorso}>{teaching.corso}</Link></h1>
             <h2 className='teaching_details_teachers'>Docenti: {teaching.docenti}</h2>
             <h3 className='teaching_details_dates'>Periodo di svolgimento: {teaching.periodo}</h3>
             <div className='teaching_details_table_container'>
