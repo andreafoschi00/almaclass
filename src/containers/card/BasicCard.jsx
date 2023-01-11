@@ -45,7 +45,7 @@ const BasicCard = props => {
           </Typography>
         </Typography>
         <Typography sx={{ fontSize: {xs: 18, md:26}}}>
-          {props.props.insegnamento}
+          <Link className='toTeaching' to={'/teaching/details/?id=' + props.props.idInsegnamento}>{props.props.insegnamento}</Link>
         </Typography>
         <Typography color="text.secondary">
           Orario: {props.props.orario}

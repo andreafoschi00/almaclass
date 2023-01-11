@@ -10,6 +10,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -17,6 +18,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -24,6 +26,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -31,6 +34,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -47,6 +51,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -54,6 +59,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -61,6 +67,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -68,6 +75,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -84,6 +92,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -91,6 +100,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -98,6 +108,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -105,6 +116,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -121,6 +133,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -128,6 +141,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -135,6 +149,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -142,6 +157,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -158,6 +174,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -165,6 +182,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -172,6 +190,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -179,6 +198,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -195,6 +215,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -202,6 +223,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -209,6 +231,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -216,6 +239,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -232,6 +256,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -239,6 +264,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -246,6 +272,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -253,6 +280,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -269,6 +297,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -276,6 +305,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -283,6 +313,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -290,6 +321,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -306,6 +338,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -313,6 +346,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -320,6 +354,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -327,6 +362,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -343,6 +379,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -350,6 +387,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -357,6 +395,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -364,6 +403,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -380,6 +420,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -387,6 +428,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -394,6 +436,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -401,6 +444,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -417,6 +461,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -424,6 +469,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -431,6 +477,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -438,6 +485,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -454,6 +502,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -461,6 +510,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -468,6 +518,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -475,6 +526,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -491,6 +543,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -498,6 +551,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -505,6 +559,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -512,6 +567,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -528,6 +584,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -535,6 +592,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -542,6 +600,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -549,6 +608,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -565,6 +625,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -572,6 +633,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -579,6 +641,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -586,6 +649,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -602,6 +666,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -609,6 +674,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -616,6 +682,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -623,6 +690,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -639,6 +707,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -646,6 +715,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -653,6 +723,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -660,6 +731,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -676,6 +748,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -683,6 +756,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -690,6 +764,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -697,6 +772,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -713,6 +789,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -720,6 +797,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -727,6 +805,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -734,6 +813,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -750,6 +830,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -757,6 +838,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -764,6 +846,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -771,6 +854,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -787,6 +871,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -794,6 +879,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -801,6 +887,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -808,6 +895,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -824,6 +912,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -831,6 +920,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -838,6 +928,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -845,6 +936,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -861,6 +953,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -868,6 +961,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -875,6 +969,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -882,6 +977,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -898,6 +994,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -905,6 +1002,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -912,6 +1010,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -919,6 +1018,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -935,6 +1035,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -942,6 +1043,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -949,6 +1051,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -956,6 +1059,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -972,6 +1076,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -979,6 +1084,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -986,6 +1092,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -993,6 +1100,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -1009,6 +1117,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -1016,6 +1125,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -1023,6 +1133,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -1030,6 +1141,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -1046,6 +1158,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -1053,6 +1166,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -1060,6 +1174,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -1067,6 +1182,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -1083,6 +1199,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -1090,6 +1207,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -1097,6 +1215,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -1104,6 +1223,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }
@@ -1120,6 +1240,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Sistemi Embedded & IoT',
+                idInsegnamento: 'sistemi_embedded_e_internet-of-things',
                 presenze: 60,
                 stato: 'ok'
             },
@@ -1127,6 +1248,7 @@ const classroomData = [
                 giorno: '05/12/2022',
                 orario: '16:00 - 18:00',
                 insegnamento: 'Informatica e Diritto',
+                idInsegnamento: 'informatica_e_diritto',
                 presenze: 60,
                 stato: 'attenzione'
             },
@@ -1134,6 +1256,7 @@ const classroomData = [
                 giorno: '06/12/2022',
                 orario: '13:00 - 16:00',
                 insegnamento: 'Tecnologie Web',
+                idInsegnamento: 'tecnologie_web',
                 presenze: 100,
                 stato: 'ok'
             },
@@ -1141,6 +1264,7 @@ const classroomData = [
                 giorno: '07/12/2022',
                 orario: '09:00 - 12:00',
                 insegnamento: 'Reti di Telecomunicazione',
+                idInsegnamento: 'reti_di_telecomunicazione',
                 presenze: 85,
                 stato: 'ok'
             }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Dashboard, Classroom, Teaching, Course, Layout, NoPage, ClassroomDetails } from './pages'; 
+import { Dashboard, Classroom, Teaching, Course, Layout, NoPage, ClassroomDetails, TeachingDetails } from './pages'; 
 
 import './App.css';
 
@@ -14,6 +14,7 @@ const App = () => {
           <Route path="classroom" element={<Classroom />} />
           <Route path="classroom/details" element={<ClassroomDetails />} />
           <Route path="teaching" element={<Teaching />} />
+          <Route path="teaching/details" element={<TeachingDetails />} />
           <Route path="course" element={<Course />} />
           <Route path="*" element={<NoPage />} />
         </Route>

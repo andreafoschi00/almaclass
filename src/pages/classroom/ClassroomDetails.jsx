@@ -5,6 +5,7 @@ import './classroomDetails.css';
 
 import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 const ClassroomDetails = () => {
     const id = new URLSearchParams(window.location.search).get('id');
@@ -36,7 +37,7 @@ const ClassroomDetails = () => {
                                 <tr key={i}>
                                     <td>{course.giorno}</td>
                                     <td>{course.orario}</td>
-                                    <td>{course.insegnamento}</td>
+                                    <td><Link className='toTeaching' to={'/teaching/details/?id=' + course.idInsegnamento}>{course.insegnamento}</Link></td>
                                     <td>{course.presenze}</td>
                                     <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
                                 </tr>
