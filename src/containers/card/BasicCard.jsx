@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography';
 
 import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+
+import './basiccard.css';
 
 const BasicCard = props => {
   let textColor, displayFirst, displaySecond, displayThird;
@@ -33,8 +36,8 @@ const BasicCard = props => {
       height: {sm: 300, md: 320}, 
       }}>
       <CardContent>
-        <Typography sx={{ fontSize: {xs: 26, md:32}, textAlign: 'center' }} color="black" gutterBottom>
-          {props.props.luogo}
+        <Typography component="span" sx={{ fontSize: {xs: 26, md:32} }} color="black" gutterBottom>
+        <Link className='toClassroom' to={'/classroom/details/?id=' + props.props.idLuogo}>{props.props.luogo}</Link>
           <Typography sx={{ float: 'right', fontSize: {xs: 25, md: 50}}}>
             <MdOutlineDone color='green' display={displayFirst} />
             <AiOutlineWarning color='orange' display={displaySecond}/>
@@ -47,8 +50,8 @@ const BasicCard = props => {
         <Typography color="text.secondary">
           Orario: {props.props.orario}
         </Typography>
-        <Typography sx={{ display: 'flex', textAlign:'center', justifyContent:'center', gap: 3}}>
-          <Typography sx={{display: 'flex', flexDirection: 'column', mt: 2.5}}>
+        <Typography component="span" sx={{ display: 'flex', textAlign:'center', justifyContent:'center', gap: 3}}>
+          <Typography component="span" sx={{display: 'flex', flexDirection: 'column', mt: 2.5}}>
             <Typography sx={{fontSize: {xs: 15, md: 20} }}>
               Capienza
             </Typography>
@@ -56,10 +59,10 @@ const BasicCard = props => {
               {props.props.capienza}
             </Typography>
           </Typography>
-          <Typography sx={{fontSize: {xs: 75, md: 100}}}>
+          <Typography component="span" sx={{fontSize: {xs: 75, md: 100}}}>
             |
           </Typography>
-          <Typography sx={{display: 'flex', flexDirection: 'column', mt: 2.5}} color={textColor}>
+          <Typography component="span" sx={{display: 'flex', flexDirection: 'column', mt: 2.5}} color={textColor}>
             <Typography sx={{fontSize: {xs: 15, md: 20} }}>
               Presenze
             </Typography>

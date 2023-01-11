@@ -4,7 +4,7 @@
 	 left: 0;
 	 height: 100%;
 	 width: 20vw;
-	 background-color: #bb2e29;
+	 background-color: var(--primary-color);
 	 transition: width 0.3s ease-in-out;
 }
 
@@ -19,7 +19,7 @@
 	 margin: 1rem 0 0 1rem;
 	 padding: 5px;
 	 cursor: pointer;
-	 background-color: #6b0808;
+	 background-color: var(--secondary-color);
 	 border: none;
 	 border-radius: 5px;
 }
@@ -57,7 +57,7 @@
 	 left: 50%;
 	 width: calc(100% - 40px);
 	 border-radius: 10px;
-	 background-color: #6b0808;
+	 background-color: var(--secondary-color);
 	 z-index: -1;
 	 transform: translateX(-50%);
 	 transition: 0.3s ease-in-out;

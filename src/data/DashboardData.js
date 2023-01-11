@@ -1,6 +1,7 @@
 const dashboardData = [
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -10,6 +11,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -19,6 +21,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -28,6 +31,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -37,6 +41,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -46,6 +51,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -55,6 +61,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -64,6 +71,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -73,6 +81,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -82,6 +91,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -91,6 +101,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -100,6 +111,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -109,6 +121,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -118,6 +131,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -127,6 +141,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -136,6 +151,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -145,6 +161,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -154,6 +171,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -163,6 +181,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -172,6 +191,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -181,6 +201,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -190,6 +211,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -199,6 +221,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -208,6 +231,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -217,6 +241,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -226,6 +251,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -235,6 +261,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -244,6 +271,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,
@@ -253,6 +281,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 2.12",
+        idLuogo: "aula2.12",
         insegnamento: "Informatica e diritto",
         orario: "16:00 - 18:00",
         capienza: 80,
@@ -262,6 +291,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 3.1",
+        idLuogo: "lab3.1",
         insegnamento: "Computer Graphics",
         orario: "15:00 - 18:00",
         capienza: 50,
@@ -271,6 +301,7 @@ const dashboardData = [
     },
     {
         luogo: "LAB 2.2",
+        idLuogo: "lab2.2",
         insegnamento: "Sistemi Operativi",
         orario: "14:00 - 17:00",
         capienza: 100,
@@ -280,6 +311,7 @@ const dashboardData = [
     },
     {
         luogo: "AULA 3.4",
+        idLuogo: "aula3.4",
         insegnamento: "Programmazione CL.B",
         orario: "13:30 - 17:00",
         capienza: 250,

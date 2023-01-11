@@ -1,0 +1,8 @@
+.toClassroom {
+    transition: 0.1s;
+}
+
+.toClassroom:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
