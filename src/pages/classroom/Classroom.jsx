@@ -37,7 +37,7 @@ class Classroom extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/api/classroom", {
+    fetch("/api/classroom/", {
       method: 'GET',
       headers: {
             'Content-Type': 'application/json',
