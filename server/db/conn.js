@@ -13,11 +13,11 @@ module.exports = {
       // Verify we got a good "db" object
       if (db)
       {
-        _db = db.db("employees");
+        _db = db.db("almaclass");
         console.log("Successfully connected to MongoDB."); 
       }
       return callback(err);
-         });
+    });
   },
  
   getDb: function () {

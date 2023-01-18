@@ -74,8 +74,8 @@ class Classroom extends React.Component {
       return sortClassrooms(a,b,1,2);
     });
 
-    const classes = classesNames.filter((item) => item.aula_nome.includes('AULA')).map((classroom) => <li key={classroom._id}><Link to={'/classroom/details/?id=' + classroom._id}>{classroom.aula_nome}</Link></li>);
-    const laboratories = laboratoriesNames.filter((item) => item.aula_nome.includes('LAB')).map((classroom) => <li key={classroom._id}><Link to={'/classroom/details/?id=' + classroom._id}>{classroom.aula_nome}</Link></li>);
+    const classes = classesNames.filter((item) => item.aula_nome.includes('AULA')).map((classroom) => <li key={classroom._id}><Link to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></li>);
+    const laboratories = laboratoriesNames.filter((item) => item.aula_nome.includes('LAB')).map((classroom) => <li key={classroom._id}><Link to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></li>);
 
     if (error) {
       return <div>Error: {error.message}</div>;

@@ -11,15 +11,17 @@ class ClassroomDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          id: new URLSearchParams(window.location.search).get('id'),
+          aula_codice: new URLSearchParams(window.location.search).get('aula_codice'),
           error: null,
           isLoaded: false,
-          items: []
+          items: [],
+          teachings: [],
+          classroomLocal: []
         }
     }
 
       componentDidMount() {
-        fetch("/api/classroom/details/?id="+this.state.id, {
+        fetch(`/api/classroom/details/?aula_codice=${this.state.aula_codice}`, {
           method: 'GET',
           headers: {
                 'Content-Type': 'application/json',
@@ -40,12 +42,56 @@ class ClassroomDetails extends React.Component {
                 error
               });
             }
-          )
+          );
+          fetch(`/api/classroom/allteachingsinclassroom/?aula_codice=${this.state.aula_codice}`, {
+            method: 'GET',
+            headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+              }
+          })
+            .then(res => res.json())
+            .then(
+              (result) => {
+                this.setState({
+                  isLoaded: true,
+                  teachings: result.body.result.records,
+                });
+              },
+              (error) => {
+                this.setState({
+                  isLoaded: true,
+                  error
+                });
+              }
+            );
+            fetch(`http://localhost:5000/classroom/${this.state.aula_codice}`, {
+              method: 'GET',
+              headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+              .then(res => res.json())
+              .then(
+                (result) => {
+                  this.setState({
+                    isLoaded: true,
+                    classroomLocal: result,
+                  });
+                },
+                (error) => {
+                  this.setState({
+                    isLoaded: true,
+                    error
+                  });
+                }
+              )
       }
 
       render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, teachings, classroomLocal } = this.state;
         const classroom = items[0];
 
         if (error) {
@@ -59,9 +105,9 @@ class ClassroomDetails extends React.Component {
                 <div className='classroom_details_container'>
                     <h1 className='classroom_details_title'>{classroom.aula_nome}</h1>
                     <h2 className='classroom_details_description'>{classroom.aula_indirizzo} - {classroom.aula_piano}</h2>
-                    <h3 className='classroom_details_capacity'>Capienza: 100</h3>
+                    <h3 className='classroom_details_capacity'>Capienza: {classroomLocal.capienza_aula}</h3>
                     <div className='classroom_details_table_container'>
-                        {/*<table>
+                        <table>
                             <thead>
                                 <tr>
                                     <th className='classroom_details_table_days'>Giorno</th>
@@ -72,22 +118,27 @@ class ClassroomDetails extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {classroom.corsi.map((course, i) => {
-                                    switch(course.stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
+                                {teachings.map((teaching, i) => {
+                                    /*switch(teaching.stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
                                         case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
                                         case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
-                                        default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
+                                        default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }*/
+                                    const data_inizio = teaching.inizio.split('T');
+                                    const data_fine = teaching.fine.split('T');
+                                    const data = data_inizio[0];
+                                    const ora_inizio = data_inizio[1];
+                                    const ora_fine = data_fine[1];
                                     return (
                                         <tr key={i}>
-                                            <td>{course.giorno}</td>
-                                            <td>{course.orario}</td>
-                                            <td><Link className='toTeaching' to={'/teaching/details/?id=' + course.idInsegnamento}>{course.insegnamento}</Link></td>
-                                            <td>{course.presenze}</td>
-                                            <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
+                                            <td>{data}</td>
+                                            <td>{ora_inizio + ' - ' + ora_fine}</td>
+                                            <td><Link className='toTeaching' to={'/teaching/details/?componente_id=' + teaching.componente_id}>{teaching.materia_descrizione}</Link></td>
+                                            <td>{/*course.presenze*/}0</td>
+                                            <td>{/*<MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/>*/}0</td>
                                         </tr>
                                     )})}
                             </tbody>
-                        </table>*/}
+                        </table>
                     </div>
                     <div className='classroom_details_buttons'>
                         <button>Statistiche</button>

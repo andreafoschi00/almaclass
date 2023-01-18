@@ -24,9 +24,9 @@ app.get('/api/classroom/', (req, res) => {
 })
 
 app.get('/api/classroom/details/', (req, res) => {
-  const id = req.query.id;
+  const aula_codice = req.query.aula_codice;
   request.get({
-      url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT * FROM aule_2022 WHERE aula_codice LIKE \'6137%\' AND _id=' + id,
+      url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT * FROM aule_2022 WHERE aula_codice =\'' + aula_codice + '\'',
       json: true
   }, (error, response) => {
       if(error) {
@@ -104,6 +104,35 @@ app.get('/api/courses/allteachings/', (req, res) => {
       }
   });
 })
+
+app.get('/api/classroom/allteachingsinclassroom/', (req, res) => {
+    let aula_codice = req.query.aula_codice;
+    aula_codice = aula_codice.substring(5, aula_codice.length);
+    request.get({
+        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, o.componente_id, i.materia_descrizione FROM orari_2022 AS o, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE \'%${aula_codice}%\' AND o.componente_id = i.componente_id ORDER BY o.inizio, o.fine ASC`,
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+ })
+
+ app.get('/api/teachings/allclassroomsinteaching/', (req, res) => {
+    const componente_id = req.query.componente_id;
+    request.get({
+        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, o.aula_codici, a.aula_nome, a.aula_codice FROM orari_2022 AS o, aule_2022 AS a WHERE o.componente_id=${componente_id} AND o.aula_codici LIKE CONCAT('%', a.aula_codice, '%') ORDER BY o.inizio, o.fine ASC`,
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+ })
  
 app.listen(port, () => {
   // perform a database connection when server starts

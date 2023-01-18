@@ -16,7 +16,7 @@ class CourseDetails extends React.Component {
     }
 
     componentDidMount() {
-        fetch("/api/courses/details/?corso_codice="+this.state.corso_codice, {
+        fetch(`/api/courses/details/?corso_codice=${this.state.corso_codice}`, {
           method: 'GET',
           headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ class CourseDetails extends React.Component {
               });
             }
         );
-        fetch("/api/courses/allteachings/?corso_codice="+this.state.corso_codice, {
+        fetch(`/api/courses/allteachings/?corso_codice=${this.state.corso_codice}`, {
             method: 'GET',
             headers: {
                   'Content-Type': 'application/json',

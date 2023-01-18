@@ -11,43 +11,28 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
  
-
-recordRoutes.route("/api/classroom").get(function (req, res) {
-    request.get({
-        url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT * FROM aule_2022 WHERE aula_codice LIKE \'6137%\'',
-        json: true
-    }, (error, response) => {
-        if(error) {
-            return res.send("Cannot fetch data");
-        } else {
-            res.send(response);
-        }
-    });
-});
- 
 // This section will help you get a list of all the records.
-recordRoutes.route("/record").get(function (req, res) {
- let db_connect = dbo.getDb("employees");
+recordRoutes.route("/classrooms/").get(function (req, res) {
+ let db_connect = dbo.getDb();
  db_connect
-   .collection("records")
+   .collection("classroom")
    .find({})
    .toArray(function (err, result) {
      if (err) throw err;
      res.json(result);
    });
 });
- 
-// This section will help you get a single record by id
-recordRoutes.route("/record/:id").get(function (req, res) {
- let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect
-   .collection("records")
-   .findOne(myquery, function (err, result) {
-     if (err) throw err;
-     res.json(result);
-   });
-});
+
+recordRoutes.route("/classroom/:id").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  let myquery = { id: req.params.id };
+  db_connect
+    .collection("classroom")
+    .findOne(myquery, function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+ });
  
 // This section will help you create a new record.
 recordRoutes.route("/record/add").post(function (req, response) {
