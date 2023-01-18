@@ -66,7 +66,7 @@ app.get('/api/courses/details/', (req, res) => {
 
 app.get('/api/teachings/', (req, res) => {
   request.get({
-      url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql=SELECT i.corso_codice, i.materia_codice, i.materia_descrizione, i.tipo, i.docente_codice, i.docente_nome, MIN(i.componente_id) AS componente_id, MIN(i.componente_padre) AS componente_padre, MIN(componente_radice) AS componente_radice, i.componente_mutuazione FROM insegnamenti_latest_it AS i WHERE (i.componente_padre IS NULL AND i.componente_id IN (SELECT i2.componente_radice FROM insegnamenti_latest_it AS i2, orari_latest AS o WHERE i2.componente_id = o.componente_id AND o.aula_codici  LIKE \'6137%\' GROUP BY i2.componente_radice)) OR ((i.tipo LIKE \'sdoppiamento\' OR (i.tipo LIKE \'modulo\' AND i.url <> \'\') OR (i.tipo LIKE \'modulo\' AND docente_codice = \'\')) AND (i.materia_codice, i.componente_radice) IN (SELECT i2.materia_codice, i2.componente_radice FROM insegnamenti_latest_it AS i2, orari_latest AS o WHERE i2.componente_id = o.componente_id AND o.aula_codici LIKE \'6137%\' GROUP BY i2.materia_codice, i2.componente_radice)) GROUP BY i.componente_id, i.corso_codice, i.materia_codice, i.materia_descrizione, i.tipo, i.docente_codice, i.docente_nome, i.componente_mutuazione ORDER BY i.materia_descrizione',
+      url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.componente_id, i.materia_descrizione FROM orari_2022 AS o, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE \'6137%\' AND o.componente_id = i.componente_id GROUP BY o.componente_id, i.materia_descrizione ORDER BY i.materia_descrizione ASC',
       json: true
   }, (error, response) => {
       if(error) {
@@ -91,10 +91,10 @@ app.get('/api/teachings/details/', (req, res) => {
   });
 })
 
-app.get('/api/courses/allteachings/', (req, res) => {
+app.get('/api/courses/allteachingsincourse/', (req, res) => {
   const corso_codice = req.query.corso_codice;
   request.get({
-      url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT i.corso_codice, i.materia_descrizione, i.docente_nome, i.lingua, i.componente_id FROM insegnamenti_2022_it AS i, corsi_2022_it AS c WHERE i.corso_codice = c.corso_codice AND c.corso_codice=\'' + corso_codice + '\'',
+      url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.componente_id, i.materia_descrizione, i.lingua, i.docente_nome FROM orari_2022 AS o, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE \'6137%\' AND o.componente_id = i.componente_id AND i.corso_codice=\'${corso_codice}\' GROUP BY o.componente_id, i.materia_descrizione, i.lingua, i.docente_nome ORDER BY i.materia_descrizione ASC`,
       json: true
   }, (error, response) => {
       if(error) {

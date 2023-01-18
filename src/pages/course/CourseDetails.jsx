@@ -38,7 +38,7 @@ class CourseDetails extends React.Component {
               });
             }
         );
-        fetch(`/api/courses/allteachings/?corso_codice=${this.state.corso_codice}`, {
+        fetch(`/api/courses/allteachingsincourse/?corso_codice=${this.state.corso_codice}`, {
             method: 'GET',
             headers: {
                   'Content-Type': 'application/json',
@@ -80,6 +80,7 @@ class CourseDetails extends React.Component {
                     <h3 className='course_details_department'>Ambito: {course.ambiti}</h3>
                     <h3 className='course_details_access'>Accesso: {course.accesso}</h3>
                     <h3 className='course_details_language'>Lingue: {course.lingue.replace(' ', ', ')}</h3>
+                    <h4 className='course_details_table_counter'>Trovati {teachings.length} insegnamenti</h4>
                     <div className='course_details_table_container'>
                         <table>
                             <thead>
