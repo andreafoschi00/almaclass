@@ -107,9 +107,8 @@ app.get('/api/courses/allteachings/', (req, res) => {
 
 app.get('/api/classroom/allteachingsinclassroom/', (req, res) => {
     let aula_codice = req.query.aula_codice;
-    aula_codice = aula_codice.substring(5, aula_codice.length);
     request.get({
-        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, o.componente_id, i.materia_descrizione FROM orari_2022 AS o, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE \'%${aula_codice}%\' AND o.componente_id = i.componente_id ORDER BY o.inizio, o.fine ASC`,
+        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, o.componente_id, i.materia_descrizione FROM orari_2022 AS o, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE CONCAT('%', (SELECT aula_codice FROM aule_2022 WHERE aula_codice=\'${aula_codice}\'), '%') AND o.componente_id = i.componente_id GROUP BY o.componente_id, o.inizio, o.fine, i.materia_descrizione ORDER BY o.inizio, o.fine ASC`,
         json: true
     }, (error, response) => {
         if(error) {
