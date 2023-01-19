@@ -55,6 +55,14 @@ td svg {
     background-color: var(--secondary-color);
 }
 
+.teaching_details_controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 2rem;
+    float: right;
+}
+
 @media screen and (max-width: 1024px) {
     .teaching_details_container{
         width: 50vw;
@@ -118,6 +126,10 @@ td svg {
 
     .teaching_details_buttons {
         gap: 3rem;
+    }
+
+    .layout_container:has(.sidebar.open) .teaching_details_controls {
+        z-index: -1;
     }
 }
 

@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './course.css';
@@ -8,8 +9,14 @@ class Course extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      searchText: ''
     }
+  }
+
+  inputHandler = (e) => {
+    let lowerCaseText = e.target.value.toLowerCase();
+    this.setState({ searchText: lowerCaseText });
   }
 
   componentDidMount() {
@@ -38,8 +45,18 @@ class Course extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
-    const courses = items.map((course) => <li key={course.corso_codice}><Link to={'/course/details/?corso_codice=' + course.corso_codice}>{course.corso_descrizione}</Link></li>);
+    const { error, isLoaded, items, searchText } = this.state;
+
+    const filteredCourses = items.filter((el) => {
+      if (searchText === '') {
+        return el;
+      }
+      else {
+        return el.corso_descrizione.toLowerCase().includes(searchText)
+      }
+    })
+
+    const courses = filteredCourses.map((course) => <li key={course.corso_codice}><Link to={'/course/details/?corso_codice=' + course.corso_codice}>{course.corso_descrizione}</Link></li>);
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -48,6 +65,16 @@ class Course extends React.Component {
     } else {
       return (
         <>
+        <div className='course_controls'>
+            <TextField
+              id='outlined-basic'
+              variant='outlined'
+              label='Cerca'
+              onChange={this.inputHandler}
+              color='error'
+              sx={{ backgroundColor: 'white' }}
+            />
+        </div>
         <div className='course_container_list'>
           <div className='course_container'>
             <h1 className='course_title'>Corsi</h1>

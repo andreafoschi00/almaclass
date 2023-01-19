@@ -51,6 +51,14 @@
     text-decoration: underline;
 }
 
+.teaching_controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 2rem;
+    float: right;
+}
+
 @media screen and (max-width: 1024px) {
     .layout_container:has(.sidebar.open) .teaching_container_list > .teaching_container {
         width: 50vw;
@@ -93,5 +101,9 @@
 
     .layout_container:has(.sidebar.open) .teaching_container_list > .teaching_container{
         display: none;
+    }
+
+    .layout_container:has(.sidebar.open) .teaching_controls {
+        z-index: -1;
     }
 }

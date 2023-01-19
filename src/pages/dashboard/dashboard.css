@@ -1,0 +1,5 @@
+.dashboard_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+}

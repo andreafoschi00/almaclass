@@ -59,6 +59,14 @@ li > a {
     text-decoration: underline;
 }
 
+.classroom_controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 2rem;
+    float: right;
+}
+
 @media screen and (max-width: 1024px) {
 
     .layout_container:has(.sidebar.open) .classroom_container_list{
@@ -126,5 +134,9 @@ li > a {
 
     .layout_container:has(.sidebar.open) .classroom_container_list > .classroom_container, .layout_container:has(.sidebar.open) .classroom_container_list > .laboratory_container{
         display: none;
+    }
+
+    .layout_container:has(.sidebar.open) .classroom_controls {
+        z-index: -1;
     }
 }

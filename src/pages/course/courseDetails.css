@@ -55,6 +55,14 @@ td svg {
     background-color: var(--secondary-color);
 }
 
+.course_details_controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 2rem;
+    float: right;
+}
+
 @media screen and (max-width: 1024px) {
     .course_details_container{
         width: 50vw;
@@ -130,6 +138,10 @@ td svg {
 
     .course_details_buttons {
         gap: 3rem;
+    }
+
+    .layout_container:has(.sidebar.open) .course_details_controls {
+        z-index: -1;
     }
 }
 

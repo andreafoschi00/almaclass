@@ -4,6 +4,7 @@ import './teachingDetails.css';
 import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { TextField } from '@mui/material';
 
 class TeachingDetails extends React.Component {
     constructor(props) {
@@ -13,8 +14,14 @@ class TeachingDetails extends React.Component {
           error: null,
           isLoaded: false,
           items: [],
-          classrooms: []
+          classrooms: [],
+          searchText: ''
         }
+    }
+
+    inputHandler = (e) => {
+      let lowerCaseText = e.target.value.toLowerCase();
+      this.setState({ searchText: lowerCaseText });
     }
 
     componentDidMount() {
@@ -66,8 +73,17 @@ class TeachingDetails extends React.Component {
 
     render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, classrooms } = this.state;
+        const { error, isLoaded, items, classrooms, searchText } = this.state;
         const teaching = items[0];
+
+        const filteredClassrooms = classrooms.filter((el) => {
+          if (searchText === '') {
+            return el;
+          }
+          else {
+            return el.inizio.toLowerCase().includes(searchText) || el.fine.toLowerCase().includes(searchText) || el.aula_nome.toLowerCase().includes(searchText);
+          }
+        });
 
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -77,12 +93,23 @@ class TeachingDetails extends React.Component {
             return <div>Error: no teaching found</div>
           } else {
             return (
+              <>
+              <div className='teaching_details_controls'>
+                  <TextField
+                    id='outlined-basic'
+                    variant='outlined'
+                    label='Cerca'
+                    onChange={this.inputHandler}
+                    color='error'
+                    sx={{ backgroundColor: 'white' }}
+                  />
+                </div>
                 <div className='teaching_details_container'>
                 <h1 className='teaching_details_name'>{teaching.materia_descrizione}</h1>
                 <h1 className='teaching_details_course'>Corso: <Link className='toCourse' to={'/course/details/?corso_codice=' + teaching.corso_codice}>{teaching.corso_descrizione}</Link></h1>
                 <h2 className='teaching_details_teachers'>Docente: {teaching.docente_nome}</h2>
                 <h3 className='teaching_details_language'>Lingua: {teaching.lingua}</h3>
-                <h4 className='teaching_details_table_counter'>Trovate {classrooms.length} lezioni</h4>
+                <h4 className='teaching_details_table_counter'>Trovate {filteredClassrooms.length} lezioni</h4>
                 <div className='teaching_details_table_container'>
                     <table>
                         <thead>
@@ -95,7 +122,7 @@ class TeachingDetails extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {classrooms.map((classroom, i) => {
+                            {filteredClassrooms.map((classroom, i) => {
                                 /*switch(classroom.stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
                                     case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
                                     case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
@@ -105,8 +132,8 @@ class TeachingDetails extends React.Component {
                                     const data = data_inizio[0];
                                     const ora_inizio = data_inizio[1];
                                     const ora_fine = data_fine[1];
-                                return (
-                                    <tr key={i}>
+                                    return (
+                                      <tr key={i}>
                                         <td>{data}</td>
                                         <td>{ora_inizio + ' - ' + ora_fine}</td>
                                         <td><Link className='toClassroom' to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></td>
@@ -121,7 +148,8 @@ class TeachingDetails extends React.Component {
                     <button>Statistiche Aule</button>
                     <button>Statistiche Insegnamento</button>
                 </div>
-            </div>
+              </div>
+            </>
             )
         }
     }
