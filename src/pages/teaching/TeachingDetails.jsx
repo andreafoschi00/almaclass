@@ -15,6 +15,7 @@ class TeachingDetails extends React.Component {
           isLoaded: false,
           items: [],
           classrooms: [],
+          classroomsLocal: [],
           searchText: ''
         }
     }
@@ -68,12 +69,34 @@ class TeachingDetails extends React.Component {
                   error
                 });
               }
-            )
+            );
+            fetch(`http://localhost:5000/classrooms/`, {
+              method: 'GET',
+              headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            })
+              .then(res => res.json())
+              .then(
+                (result) => {
+                  this.setState({
+                    isLoaded: true,
+                    classroomsLocal: result
+                  });
+                },
+                (error) => {
+                  this.setState({
+                    isLoaded: true,
+                    error
+                  });
+                }
+              )
     }
 
     render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, classrooms, searchText } = this.state;
+        const { error, isLoaded, items, classrooms, searchText, classroomsLocal } = this.state;
         const teaching = items[0];
 
         const filteredClassrooms = classrooms.filter((el) => {
@@ -123,22 +146,38 @@ class TeachingDetails extends React.Component {
                         </thead>
                         <tbody>
                             {filteredClassrooms.map((classroom, i) => {
-                                /*switch(classroom.stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
-                                    case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
-                                    case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
-                                    default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }*/
                                     const data_inizio = classroom.inizio.split('T');
                                     const data_fine = classroom.fine.split('T');
                                     const data = data_inizio[0];
                                     const ora_inizio = data_inizio[1];
                                     const ora_fine = data_fine[1];
+
+                                    const classroom_attuale = classroomsLocal.filter((cl) => cl.id === classroom.aula_codice);
+                                    const capienza_attuale = classroom_attuale[0].capienza_aula;
+
+                                    const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
+                                    let stato;
+                                    
+                                    if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
+                                      stato = 'attenzione';
+                                    } else if (capienzaCalcolata > capienza_attuale) {
+                                      stato = 'anomalia';
+                                    } else {
+                                      stato = 'ok';
+                                    }
+
+                                    switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
+                                    case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
+                                    case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
+                                    default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
+
                                     return (
                                       <tr key={i}>
                                         <td>{data}</td>
                                         <td>{ora_inizio + ' - ' + ora_fine}</td>
                                         <td><Link className='toClassroom' to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></td>
-                                        <td>{/*classroom.presenze*/}0</td>
-                                        <td>{/*<MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/>*/}0</td>
+                                        <td>{capienzaCalcolata}</td>
+                                        <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
                                     </tr>
                                 )})}
                         </tbody>

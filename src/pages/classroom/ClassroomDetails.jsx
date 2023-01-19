@@ -1,6 +1,5 @@
 import React from 'react';
 
-import classroomData from '../../data/ClassroomData';
 import './classroomDetails.css';
 
 import { MdOutlineDone, MdError } from 'react-icons/md';
@@ -147,22 +146,34 @@ class ClassroomDetails extends React.Component {
                             </thead>
                             <tbody>
                                 {filteredTeachings.map((teaching, i) => {
-                                  /*switch(teaching.stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
-                                  case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
-                                  case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
-                                  default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }*/
                                     const data_inizio = teaching.inizio.split('T');
                                     const data_fine = teaching.fine.split('T');
                                     const data = data_inizio[0];
                                     const ora_inizio = data_inizio[1];
                                     const ora_fine = data_fine[1];
+                                    const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10;
+                                    let stato;
+                                    
+                                    if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.95)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.15))) {
+                                      stato = 'attenzione';
+                                    } else if (capienzaCalcolata > classroomLocal.capienza_aula) {
+                                      stato = 'anomalia';
+                                    } else {
+                                      stato = 'ok';
+                                    }
+
+                                    switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
+                                    case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
+                                    case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
+                                    default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
+
                                     return (
                                       <tr key={i}>
                                             <td>{data}</td>
                                             <td>{ora_inizio + ' - ' + ora_fine}</td>
                                             <td><Link className='toTeaching' to={'/teaching/details/?componente_id=' + teaching.componente_id}>{teaching.materia_descrizione}</Link></td>
-                                            <td>{/*course.presenze*/}0</td>
-                                            <td>{/*<MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/>*/}0</td>
+                                            <td>{capienzaCalcolata}</td>
+                                            <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
                                         </tr>
                                     )})}
                             </tbody>
