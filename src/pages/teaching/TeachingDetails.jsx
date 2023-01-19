@@ -109,7 +109,7 @@ class TeachingDetails extends React.Component {
                 <h1 className='teaching_details_course'>Corso: <Link className='toCourse' to={'/course/details/?corso_codice=' + teaching.corso_codice}>{teaching.corso_descrizione}</Link></h1>
                 <h2 className='teaching_details_teachers'>Docente: {teaching.docente_nome}</h2>
                 <h3 className='teaching_details_language'>Lingua: {teaching.lingua}</h3>
-                <h4 className='teaching_details_table_counter'>Trovate {filteredClassrooms.length} lezioni</h4>
+                <h4 className='teaching_details_table_counter'>{filteredClassrooms.length === 1? 'Trovata' : 'Trovate'} {filteredClassrooms.length} {filteredClassrooms.length === 1? 'lezione' : 'lezioni'}</h4>
                 <div className='teaching_details_table_container'>
                     <table>
                         <thead>

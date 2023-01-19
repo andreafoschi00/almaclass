@@ -133,7 +133,7 @@ class ClassroomDetails extends React.Component {
                     <h1 className='classroom_details_title'>{classroom.aula_nome}</h1>
                     <h2 className='classroom_details_description'>{classroom.aula_indirizzo} - {classroom.aula_piano}</h2>
                     <h3 className='classroom_details_capacity'>Capienza: {classroomLocal.capienza_aula}</h3>
-                    <h4 className='classrooms_details_table_counter'>Trovate {filteredTeachings.length} lezioni</h4>
+                    <h4 className='classrooms_details_table_counter'>{filteredTeachings.length === 1? 'Trovata' : 'Trovate'} {filteredTeachings.length} {filteredTeachings.length === 1? 'lezione' : 'lezioni'}</h4>
                     <div className='classroom_details_table_container'>
                         <table>
                             <thead>
