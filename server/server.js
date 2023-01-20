@@ -37,6 +37,19 @@ app.get('/api/classroom/details/', (req, res) => {
   });
 })
 
+app.get('/api/classroom/floors', (req, res) => {
+    request.get({
+        url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT DISTINCT(aula_piano) FROM aule_2022 WHERE aula_codice LIKE \'6137%\' ORDER BY aula_piano ASC',
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+  })
+
 app.get('/api/courses/', (req, res) => {
   request.get({
       url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT STRING_AGG(DISTINCT(i.corso_codice), \',\') AS corso_codice, c.corso_descrizione, c.tipologia, c.ambiti FROM orari_2022 AS o, insegnamenti_2022_it AS i, corsi_2022_it AS c WHERE i.corso_codice = c.corso_codice AND o.componente_id = i.componente_id AND o.aula_codici LIKE \'6137%\' GROUP BY c.corso_descrizione, c.tipologia, c.ambiti, c.durata ORDER BY c. corso_descrizione ASC',
@@ -49,6 +62,32 @@ app.get('/api/courses/', (req, res) => {
       }
   });
 })
+
+app.get('/api/courses/scopes', (req, res) => {
+    request.get({
+        url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT DISTINCT(c.ambiti) AS ambiti FROM orari_2022 AS o, insegnamenti_2022_it AS i, corsi_2022_it AS c WHERE i.corso_codice = c.corso_codice AND o.componente_id = i.componente_id AND o.aula_codici LIKE \'6137%\' GROUP BY c.ambiti ORDER BY c.ambiti ASC',
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+  })
+
+  app.get('/api/courses/types', (req, res) => {
+    request.get({
+        url: 'https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT DISTINCT(c.tipologia) AS tipologia FROM orari_2022 AS o, insegnamenti_2022_it AS i, corsi_2022_it AS c WHERE i.corso_codice = c.corso_codice AND o.componente_id = i.componente_id AND o.aula_codici LIKE \'6137%\' GROUP BY c.tipologia ORDER BY c.tipologia ASC',
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+  })
 
 app.get('/api/courses/details/', (req, res) => {
   const corso_codice = req.query.corso_codice;

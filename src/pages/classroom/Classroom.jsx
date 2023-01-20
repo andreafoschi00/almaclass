@@ -2,7 +2,7 @@ import React from 'react';
 import './classroom.css';
 
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 function sortClassrooms(a, b, firstIndex, secondIndex) {
   const first = a.aula_nome.split(".");
@@ -27,6 +27,23 @@ function sortClassrooms(a, b, firstIndex, secondIndex) {
   }
 }
 
+function checkText(aula_nome, searchText) {
+  return aula_nome.toLowerCase().includes(searchText);
+}
+
+function checkFloor(aula_codice, floor) {
+  switch(floor) {
+    case 'Piano Terra':
+      return aula_codice.includes('WPTE');
+    case 'Piano Primo':
+      return aula_codice.includes('WP01');
+    case 'Piano Secondo':
+      return aula_codice.includes('WP02');
+    default:
+      return false;
+  }
+}
+
 class Classroom extends React.Component {
   constructor(props) {
     super(props);
@@ -34,9 +51,15 @@ class Classroom extends React.Component {
       error: null,
       isLoaded: false,
       items: [],
-      searchText: ''
+      searchText: '',
+      floors: [],
+      floor: ''
     }
   }
+
+  handleChange = (event) => {
+    this.setState({ floor: event.target.value});
+  };
 
   componentDidMount() {
     fetch("/api/classroom/", {
@@ -60,7 +83,29 @@ class Classroom extends React.Component {
             error
           });
         }
-      )
+      );
+      fetch("/api/classroom/floors", {
+        method: 'GET',
+        headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+          }
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isLoaded: true,
+              floors: result.body.result.records
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        )
   }
 
   inputHandler = (e) => {
@@ -69,7 +114,7 @@ class Classroom extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items, searchText } = this.state;
+    const { error, isLoaded, items, searchText, floors, floor } = this.state;
     const classesNames = items.filter((item) => item.aula_nome.includes('AULA'));
     const laboratoriesNames = items.filter((item) => item.aula_nome.includes('LAB'));
 
@@ -82,20 +127,32 @@ class Classroom extends React.Component {
     });
 
     const filterClasses = classesNames.filter((el) => {
-      if (searchText === '') {
+      if (searchText === '' && floor === '') {
         return el;
       }
+      else if(searchText !== '' && floor === ''){
+        return checkText(el.aula_nome, searchText);
+      }
+      else if(searchText === '' && floor !== '') {
+        return checkFloor(el.aula_codice, floor);
+      }
       else {
-        return el.aula_nome.toLowerCase().includes(searchText)
+        return checkText(el.aula_nome, searchText) && checkFloor(el.aula_codice, floor);
       }
     })
 
     const filterLabs = laboratoriesNames.filter((el) => {
-      if (searchText === '') {
+      if (searchText === '' && floor === '') {
         return el;
       }
+      else if(searchText !== '' && floor === ''){
+        return checkText(el.aula_nome, searchText);
+      }
+      else if(searchText === '' && floor !== '') {
+        return checkFloor(el.aula_codice, floor);
+      }
       else {
-        return el.aula_nome.toLowerCase().includes(searchText)
+        return checkText(el.aula_nome, searchText) && checkFloor(el.aula_codice, floor);
       }
     })
 
@@ -111,14 +168,36 @@ class Classroom extends React.Component {
       return (
         <>
         <div className='classroom_controls'>
-          <TextField
-            id='outlined-basic'
-            variant='outlined'
-            label='Cerca'
-            onChange={this.inputHandler}
-            color='error'
-            sx={{ backgroundColor: 'white' }}
-          />
+          <div className="classroom_controls_searchbar">
+            <TextField
+              id='outlined-basic'
+              variant='outlined'
+              label='Cerca'
+              onChange={this.inputHandler}
+              color='error'
+              sx={{ backgroundColor: 'white', width: 200 }}
+              />
+          </div>
+          <div className="classroom_controls_select">
+            <FormControl sx={{ width: 200 }} color='error'>
+              <InputLabel id="select-label">Piano</InputLabel>
+              <Select
+                labelId="select-autowidth-label"
+                id="select-autowidth-id"
+                value={floor}
+                onChange={this.handleChange}
+                autoWidth
+                label="Piano"
+                >
+                <MenuItem value=''>
+                  <em>Tutti</em>
+                </MenuItem>
+                {floors.map((floor,i) => {
+                  return <MenuItem key={i} value={floor.aula_piano}>{floor.aula_piano}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </div>
         </div>
           <div className='classroom_container_list'>
             <div className='classroom_container'>

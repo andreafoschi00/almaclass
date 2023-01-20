@@ -65,7 +65,15 @@ li > a {
     justify-content: flex-end;
     gap: 2rem;
     float: right;
+    overflow-wrap: break-word;
 }
+
+.classroom_controls_searchbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 
 @media screen and (max-width: 1024px) {
 
@@ -118,6 +126,11 @@ li > a {
     li > a {
         font-size: 18px;
     }
+
+    .layout_container:has(.sidebar.open) .classroom_controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -138,5 +151,10 @@ li > a {
 
     .layout_container:has(.sidebar.open) .classroom_controls {
         z-index: -1;
+    }
+
+    .classroom_controls {
+        flex-direction: column;
+        gap: 1rem;
     }
 }

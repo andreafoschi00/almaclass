@@ -59,6 +59,12 @@
     float: right;
 }
 
+.classroom_controls_select {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
 @media screen and (max-width: 1024px) {
     .layout_container:has(.sidebar.open) .course_container_list > .course_container {
         width: 50vw;
@@ -92,6 +98,11 @@
     li > a {
         font-size: 18px;
     }
+
+    .layout_container:has(.sidebar.open) .course_controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -105,5 +116,10 @@
 
     .layout_container:has(.sidebar.open) .course_controls {
         z-index: -1;
+    }
+
+    .course_controls {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
