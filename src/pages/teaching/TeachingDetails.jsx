@@ -146,11 +146,11 @@ class TeachingDetails extends React.Component {
                         </thead>
                         <tbody>
                             {filteredClassrooms.map((classroom, i) => {
-                                    const data_inizio = classroom.inizio.split('T');
-                                    const data_fine = classroom.fine.split('T');
-                                    const data = data_inizio[0];
-                                    const ora_inizio = data_inizio[1];
-                                    const ora_fine = data_fine[1];
+                                    const dateFormat = new Date(classroom.inizio);
+                                    const dateFormat2 = new Date(classroom.fine);
+                                    const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
+                                    const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                    const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
 
                                     const classroom_attuale = classroomsLocal.filter((cl) => cl.id === classroom.aula_codice);
                                     const capienza_attuale = classroom_attuale[0].capienza_aula;

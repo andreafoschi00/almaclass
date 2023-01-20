@@ -146,11 +146,11 @@ class ClassroomDetails extends React.Component {
                             </thead>
                             <tbody>
                                 {filteredTeachings.map((teaching, i) => {
-                                    const data_inizio = teaching.inizio.split('T');
-                                    const data_fine = teaching.fine.split('T');
-                                    const data = data_inizio[0];
-                                    const ora_inizio = data_inizio[1];
-                                    const ora_fine = data_fine[1];
+                                    const dateFormat = new Date(teaching.inizio);
+                                    const dateFormat2 = new Date(teaching.fine);
+                                    const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
+                                    const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                    const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
                                     const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10;
                                     let stato;
                                     
