@@ -1,6 +1,8 @@
 .course_container_list{
     display: flex;
     justify-content: center;
+    height: 80vh;
+    overflow-y: scroll;
 }
 
 .course_title {
@@ -106,6 +108,11 @@
 }
 
 @media screen and (max-width: 425px) {
+
+    .course_container_list {
+        height: auto;
+    }
+
     .layout_container:has(.sidebar.close) .course_container_list > .course_container{
         width: 60vw;
     }

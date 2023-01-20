@@ -5,11 +5,13 @@
     border-radius: 5px;
     background-color: white;
     width: 70vw;
+    height: 80vh;
     padding: 2.5rem 2rem 0.5rem 2rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    overflow-y: scroll;
 }
 
 .layout_container:has(.sidebar.close) .classroom_details_container {
@@ -130,6 +132,10 @@ td svg {
 
     .layout_container:has(.sidebar.open) .classroom_details_controls {
         z-index: -1;
+    }
+
+    .layout_container:has(.sidebar.close) .classroom_details_container {
+        z-index: 1;
     }
 }
 

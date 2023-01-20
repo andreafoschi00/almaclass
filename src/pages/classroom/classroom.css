@@ -17,6 +17,8 @@
     border-radius: 5px;
     background-color: white;
     width: 33vw;
+    height: 80vh;
+    overflow-y: scroll;
 }
 
 .layout_container:has(.sidebar.close) .classroom_container_list > .classroom_container, .classroom_container_list > .laboratory_container{
@@ -134,6 +136,10 @@ li > a {
 }
 
 @media screen and (max-width: 425px) {
+
+    .classroom_container, .laboratory_container{
+        height: auto;
+    }
 
     .classroom_container_list{
         flex-direction: column;

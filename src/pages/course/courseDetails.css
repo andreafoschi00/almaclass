@@ -5,6 +5,8 @@
     border-radius: 5px;
     background-color: white;
     width: 70vw;
+    height: 80vh;
+    overflow-y: scroll;
     padding: 2.5rem 2rem 0.5rem 2rem;
     text-align: center;
     display: flex;
@@ -142,6 +144,10 @@ td svg {
 
     .layout_container:has(.sidebar.open) .course_details_controls {
         z-index: -1;
+    }
+
+    .layout_container:has(.sidebar.close) .course_details_container {
+        z-index: 1;
     }
 }
 
