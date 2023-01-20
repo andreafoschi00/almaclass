@@ -104,7 +104,6 @@ class Course extends React.Component {
     const { error, isLoaded, items, searchText, scopes, types, scope, type } = this.state;
 
     const filteredCourses = items.filter((el) => {
-      console.log(scope, type)
       if (searchText === '' && scope === '' && type === '') {
         return el;
       }
@@ -149,10 +148,10 @@ class Course extends React.Component {
           </div>
           <div className="course_controls_select_scope">
             <FormControl sx={{ width: 200 }} color='error'>
-              <InputLabel id="type-select-label">Ambito</InputLabel>
+              <InputLabel id="scope-select-label">Ambito</InputLabel>
               <Select
-                labelId="type-select-autowidth-label"
-                id="type-select-autowidth-id"
+                labelId="scope-select-autowidth-label"
+                id="scope-select-autowidth-id"
                 value={scope}
                 onChange={this.handleScopeChange}
                 autoWidth

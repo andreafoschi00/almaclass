@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './teaching.css';
@@ -10,7 +10,11 @@ class Teaching extends React.Component {
       error: null,
       isLoaded: false,
       items: [],
-      searchText: ''
+      searchText: '',
+      types: [],
+      languages: [],
+      type: '',
+      language: ''
     }
   }
 
@@ -36,7 +40,51 @@ class Teaching extends React.Component {
             error
           });
         }
-      )
+      );
+      fetch("/api/teachings/types", {
+        method: 'GET',
+        headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+          }
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isLoaded: true,
+              types: result.body.result.records
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        );
+        fetch("/api/teachings/languages", {
+          method: 'GET',
+          headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        })
+          .then(res => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                languages: result.body.result.records
+              });
+            },
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
+            }
+          );
   }
 
   inputHandler = (e) => {
@@ -44,15 +92,39 @@ class Teaching extends React.Component {
     this.setState({ searchText: lowerCaseText });
   }
 
+  handleTypeChange = (event) => {
+    this.setState({ type: event.target.value });
+  }
+
+  handleLanguageChange = (event) => {
+    this.setState({ language: event.target.value });
+  }
+
   render() {
-    const { error, isLoaded, items, searchText } = this.state;
+    const { error, isLoaded, items, searchText, languages, types, language, type } = this.state;
+
+    console.dir(items)
 
     const filteredTeachings = items.filter((el) => {
-      if (searchText === '') {
+      if (searchText === '' && type === '' && language === '') {
         return el;
       }
-      else {
-        return el.materia_descrizione.toLowerCase().includes(searchText)
+      else if(searchText !== '' && type === '' && language === ''){
+        return el.materia_descrizione.toLowerCase().includes(searchText);
+      }
+      else if(searchText === '' && type !== '' && language === ''){
+        return el.tipo === type;
+      }
+      else if(searchText === '' && type === '' && language !== ''){
+        return el.lingua === language;
+      } else if(searchText !== '' && type !== '' && language === ''){
+        return el.materia_descrizione.toLowerCase().includes(searchText) && el.tipo === type;
+      } else if (searchText !== '' && type === '' && language !== '') {
+        return el.materia_descrizione.toLowerCase().includes(searchText) && el.lingua === language;
+      } else if (searchText === '' && type !== '' && language !== '') {
+        return el.tipo === type && el.lingua === language;
+      } else {
+        return el.materia_descrizione.toLowerCase().includes(searchText) && el.tipo === type && el.lingua === language;
       }
     })
 
@@ -66,14 +138,56 @@ class Teaching extends React.Component {
       return (
         <>
           <div className='teaching_controls'>
-            <TextField
-              id='outlined-basic'
-              variant='outlined'
-              label='Cerca'
-              onChange={this.inputHandler}
-              color='error'
-              sx={{ backgroundColor: 'white' }}
-            />
+            <div className="teaching_cotrols_searchbar">
+              <TextField
+                id='outlined-basic'
+                variant='outlined'
+                label='Cerca'
+                onChange={this.inputHandler}
+                color='error'
+                sx={{ backgroundColor: 'white', width: 200 }}
+                />
+            </div>
+            <div className="teaching_controls_select_type">
+              <FormControl sx={{ width: 200 }} color='error'>
+                <InputLabel id="type-select-label">Tipo</InputLabel>
+                <Select
+                  labelId="type-select-autowidth-label"
+                  id="type-select-autowidth-id"
+                  value={type}
+                  onChange={this.handleTypeChange}
+                  autoWidth
+                  label="Tipo"
+                  >
+                  <MenuItem value=''>
+                    <em>Tutti</em>
+                  </MenuItem>
+                  {types.map((type,i) => {
+                    return <MenuItem key={i} value={type.tipo}>{type.tipo}</MenuItem>
+                  })}
+                </Select>
+              </FormControl>
+          </div>
+          <div className="course_controls_select_language">
+            <FormControl sx={{ width: 200 }} color='error'>
+              <InputLabel id="language-select-label">Lingua</InputLabel>
+              <Select
+                labelId="language-select-autowidth-label"
+                id="language-select-autowidth-id"
+                value={language}
+                onChange={this.handleLanguageChange}
+                autoWidth
+                label="Lingua"
+                >
+                <MenuItem value=''>
+                  <em>Tutte</em>
+                </MenuItem>
+                {languages.map((language,i) => {
+                  return <MenuItem key={i} value={language.lingua}>{language.lingua}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </div>
           </div>
           <div className='teaching_container_list'>
             <div className='teaching_container'>

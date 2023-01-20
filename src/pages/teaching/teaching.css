@@ -40,6 +40,7 @@
 .teaching_list a {
     pointer-events: auto;
     transition: 0.1s;
+    overflow-wrap: break-word;
 }
 
 .teaching_list > li:hover{
@@ -92,6 +93,11 @@
     li > a {
         font-size: 18px;
     }
+
+    .layout_container:has(.sidebar.open) .teaching_controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -105,5 +111,10 @@
 
     .layout_container:has(.sidebar.open) .teaching_controls {
         z-index: -1;
+    }
+
+    .teaching_controls {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
