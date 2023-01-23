@@ -108,6 +108,9 @@ class CourseDetails extends React.Component {
                     <h3 className='course_details_access'>Accesso: {course.accesso}</h3>
                     <h3 className='course_details_language'>Lingue: {course.lingue.replace(' ', ', ')}</h3>
                     <h4 className='course_details_table_counter'>{filteredTeachings.length === 1? 'Trovato' : 'Trovati'} {filteredTeachings.length} {filteredTeachings.length === 1? 'insegnamento' : 'insegnamenti'}</h4>
+                    <div className='course_details_buttons'>
+                        <button>Statistiche Corso</button>
+                    </div>
                     <div className='course_details_table_container'>
                         <table>
                             <thead>
@@ -128,9 +131,6 @@ class CourseDetails extends React.Component {
                                     )})}
                             </tbody>
                         </table>
-                    </div>
-                    <div className='course_details_buttons'>
-                        <button>Statistiche Corso</button>
                     </div>
                 </div>
               </>

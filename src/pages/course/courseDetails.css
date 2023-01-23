@@ -39,7 +39,7 @@ td svg {
     flex-direction: row;
     gap: 10rem;
     justify-content: center;
-    padding: 2.5rem 0;
+    padding: 0.5rem 0;
 }
 
 .course_details_buttons > button {
