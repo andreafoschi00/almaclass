@@ -102,9 +102,7 @@ class Teaching extends React.Component {
 
   render() {
     const { error, isLoaded, items, searchText, languages, types, language, type } = this.state;
-
-    console.dir(items)
-
+    
     const filteredTeachings = items.filter((el) => {
       if (searchText === '' && type === '' && language === '') {
         return el;

@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Popup } from '../../containers';
 import './courseDetails.css';
 
 
@@ -13,13 +14,18 @@ class CourseDetails extends React.Component {
           isLoaded: false,
           items: [],
           teachings: [],
-          searchText: ''
+          searchText: '',
+          openCharts: ''
         }
     }
 
     inputHandler = (e) => {
       let lowerCaseText = e.target.value.toLowerCase();
       this.setState({ searchText: lowerCaseText });
+    }
+
+    toggleCharts = () => {
+      this.setState({ openCharts: !this.state.openCharts});
     }
 
     componentDidMount() {
@@ -70,7 +76,7 @@ class CourseDetails extends React.Component {
     }
 
     render() {
-        const { error, isLoaded, items, teachings, searchText } = this.state;
+        const { error, isLoaded, items, teachings, searchText, openCharts } = this.state;
         const course = items[0];
 
         const filteredTeachings = teachings.filter((el) => {
@@ -109,7 +115,14 @@ class CourseDetails extends React.Component {
                     <h3 className='course_details_language'>Lingue: {course.lingue.replace(' ', ', ')}</h3>
                     <h4 className='course_details_table_counter'>{filteredTeachings.length === 1? 'Trovato' : 'Trovati'} {filteredTeachings.length} {filteredTeachings.length === 1? 'insegnamento' : 'insegnamenti'}</h4>
                     <div className='course_details_buttons'>
-                        <button>Statistiche Corso</button>
+                      <input type='button' className='button' value='Statistiche Corso' onClick={this.toggleCharts}/>
+                        { openCharts && <Popup
+                          content={
+                            <>
+                              <div>Coming soon...</div>
+                            </>}
+                          handleClose={this.toggleCharts}
+                        />}
                     </div>
                     <div className='course_details_table_container'>
                         <table>

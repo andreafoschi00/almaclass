@@ -5,6 +5,9 @@ import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import { Popup } from '../../containers';
+
 
 class TeachingDetails extends React.Component {
     constructor(props) {
@@ -16,13 +19,28 @@ class TeachingDetails extends React.Component {
           items: [],
           classrooms: [],
           classroomsLocal: [],
-          searchText: ''
+          searchText: '',
+          dates: [null, null],
+          openChartsClassrooms: false,
+          openChartsTeaching: false
         }
     }
 
     inputHandler = (e) => {
       let lowerCaseText = e.target.value.toLowerCase();
       this.setState({ searchText: lowerCaseText });
+    }
+
+    handleDateChange = (e) => {
+      e ? this.setState({ dates: [e[0], e[1]]}) : this.setState({ dates: [null, null]})
+    }
+
+    toggleChartsClassrooms = () => {
+      this.setState({ openChartsClassrooms: !this.state.openChartsClassrooms});
+    }
+
+    toggleChartsTeaching = () => {
+      this.setState({ openChartsTeaching: !this.state.openChartsTeaching});
     }
 
     componentDidMount() {
@@ -96,15 +114,24 @@ class TeachingDetails extends React.Component {
 
     render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, classrooms, searchText, classroomsLocal } = this.state;
+        const { error, isLoaded, items, classrooms, searchText, classroomsLocal, dates, openChartsClassrooms, openChartsTeaching } = this.state;
         const teaching = items[0];
 
-        const filteredClassrooms = classrooms.filter((el) => {
+        let filteredClassrooms = classrooms.filter((el) => {
           if (searchText === '') {
             return el;
           }
           else {
             return el.inizio.toLowerCase().includes(searchText) || el.fine.toLowerCase().includes(searchText) || el.aula_nome.toLowerCase().includes(searchText);
+          }
+        });
+
+        filteredClassrooms = filteredClassrooms.filter((el) => {
+          if(dates[0] == null || dates[1] == null) {
+            return el;
+          } else {
+            const dateFormat = new Date(el.inizio);
+            return dateFormat >= dates[0] && dateFormat <= dates[1];
           }
         });
 
@@ -127,6 +154,13 @@ class TeachingDetails extends React.Component {
                     sx={{ backgroundColor: 'white' }}
                   />
                 </div>
+                <div className="teaching_details_range_picker">
+                  <DateRangePicker 
+                    onChange={this.handleDateChange} 
+                    value={dates}
+                    format='dd/MM/yyyy'
+                    />
+                </div>
                 <div className='teaching_details_container'>
                 <h1 className='teaching_details_name'>{teaching.materia_descrizione}</h1>
                 <h1 className='teaching_details_course'>Corso: <Link className='toCourse' to={'/course/details/?corso_codice=' + teaching.corso_codice}>{teaching.corso_descrizione}</Link></h1>
@@ -134,8 +168,22 @@ class TeachingDetails extends React.Component {
                 <h3 className='teaching_details_language'>Lingua: {teaching.lingua}</h3>
                 <h4 className='teaching_details_table_counter'>{filteredClassrooms.length === 1? 'Trovata' : 'Trovate'} {filteredClassrooms.length} {filteredClassrooms.length === 1? 'lezione' : 'lezioni'}</h4>
                 <div className='teaching_details_buttons'>
-                    <button>Statistiche Aule</button>
-                    <button>Statistiche Insegnamento</button>
+                  <input type='button' className='button' value='Statistiche Aule' onClick={this.toggleChartsClassrooms}/>
+                    { openChartsClassrooms && <Popup
+                      content={
+                        <>
+                          <div>Coming soon...</div>
+                        </>}
+                      handleClose={this.toggleChartsClassrooms}
+                    />}
+                  <input type='button' className='button' value='Statistiche insegnamento' onClick={this.toggleChartsTeaching} />
+                    { openChartsTeaching && <Popup
+                      content={
+                        <>
+                          <div>Coming soon...</div>
+                        </>}
+                      handleClose={this.toggleChartsTeaching}
+                    />}
                 </div>
                 <div className='teaching_details_table_container'>
                     <table>

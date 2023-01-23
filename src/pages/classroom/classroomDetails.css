@@ -130,12 +130,16 @@ td svg {
         gap: 3rem;
     }
 
-    .layout_container:has(.sidebar.open) .classroom_details_controls {
+    .layout_container:has(.sidebar.open) .classroom_details_controls, .classroom_details_range_picker {
         z-index: -1;
     }
 
     .layout_container:has(.sidebar.close) .classroom_details_container {
         z-index: 1;
+    }
+
+    .layout_container:has(.sidebar.close) .classroom_details_range_picker {
+        z-index: 2;
     }
 }
 

@@ -7,6 +7,7 @@ import { AiOutlineWarning } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { Popup } from '../../containers';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
 import pianoTerra from './../../assets/piano_terra.svg';
 import pianoPrimo from './../../assets/piano_primo.svg';
@@ -23,7 +24,9 @@ class ClassroomDetails extends React.Component {
           teachings: [],
           classroomLocal: [],
           searchText: '',
-          openMap: false
+          dates: [null, null],
+          openMap: false,
+          openCharts: false
         }
     }
 
@@ -32,8 +35,16 @@ class ClassroomDetails extends React.Component {
       this.setState({ searchText: lowerCaseText });
     }
 
+    handleDateChange = (e) => {
+      e ? this.setState({ dates: [e[0], e[1]]}) : this.setState({ dates: [null, null]})
+    }
+
     toggleMap = () => {
       this.setState({ openMap: !this.state.openMap});
+    }
+
+    toggleCharts = () => {
+      this.setState({ openCharts: !this.state.openCharts});
     }
 
       componentDidMount() {
@@ -107,22 +118,33 @@ class ClassroomDetails extends React.Component {
 
       render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap } = this.state;
+        const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap, openCharts, dates } = this.state;
         const classroom = items[0];
 
-        const filteredTeachings = teachings.filter((el) => {
+        console.log(openCharts)
+
+        let filteredTeachings = teachings.filter((el) => {
           if (searchText === '') {
             return el;
           }
           else {
             return el.inizio.toLowerCase().includes(searchText) || el.fine.toLowerCase().includes(searchText) || el.materia_descrizione.toLowerCase().includes(searchText);
           }
-        })
+        });
+
+        filteredTeachings = filteredTeachings.filter((el) => {
+          if(dates[0] == null || dates[1] == null) {
+            return el;
+          } else {
+            const dateFormat = new Date(el.inizio);
+            return dateFormat >= dates[0] && dateFormat <= dates[1];
+          }
+        });
 
         if (error) {
-          return <div>Error: {error.message}</div>;
+          return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
-          return <div>Loading...</div>;
+          return <div>Loading...</div>
         } else if (!classroom) {
           return <div>Error: no classroom found</div>
         } else {
@@ -153,13 +175,27 @@ class ClassroomDetails extends React.Component {
                     sx={{ backgroundColor: 'white' }}
                   />
                 </div>
+                <div className="classroom_details_range_picker">
+                  <DateRangePicker 
+                    onChange={this.handleDateChange} 
+                    value={dates}
+                    format='dd/MM/yyyy'
+                    />
+                </div>
                 <div className='classroom_details_container'>
                     <h1 className='classroom_details_title'>{classroom.aula_nome}</h1>
                     <h2 className='classroom_details_description'>{classroom.aula_indirizzo} - {classroom.aula_piano}</h2>
                     <h3 className='classroom_details_capacity'>Capienza: {classroomLocal.capienza_aula}</h3>
                     <h4 className='classrooms_details_table_counter'>{filteredTeachings.length === 1? 'Trovata' : 'Trovate'} {filteredTeachings.length} {filteredTeachings.length === 1? 'lezione' : 'lezioni'}</h4>
                     <div className='classroom_details_buttons'>
-                        <input type='button' className='button' value='Statistiche' />
+                        <input type='button' className='button' value='Statistiche' onClick={this.toggleCharts}/>
+                        { openCharts && <Popup
+                          content={
+                          <>
+                            <div>Coming soon...</div>
+                          </>}
+                          handleClose={this.toggleCharts}
+                        />}
                         <input type='button' className='button' value='Mappa' onClick={this.toggleMap} />
                         { openMap && <Popup
                           content={
