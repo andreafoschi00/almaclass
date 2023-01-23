@@ -39,10 +39,10 @@ td svg {
     flex-direction: row;
     gap: 10rem;
     justify-content: center;
-    padding: 2.5rem 0;
+    padding: 0.5rem 0;
 }
 
-.classroom_details_buttons > button {
+.classroom_details_buttons > input.button {
     background-color: var(--primary-color);
     color: white;
     padding: 0.75rem 1.75rem;
@@ -52,7 +52,7 @@ td svg {
     transition: 0.3s;
 }
 
-.classroom_details_buttons > button:hover{
+.classroom_details_buttons > input.button:hover{
     cursor: pointer;
     background-color: var(--secondary-color);
 }
@@ -79,7 +79,7 @@ td svg {
         font-size: 14px;
     }
 
-    .classroom_details_buttons > button {
+    .classroom_details_buttons > input.button {
         padding: 0.50rem 1.50rem;
         font-size: 18px;
     }
@@ -91,7 +91,7 @@ td svg {
         font-size: 12px;
     }
 
-    .classroom_details_buttons > button {
+    .classroom_details_buttons > input.button {
         padding: 0.25rem 1.25rem;
         font-size: 14px;
     }
@@ -121,7 +121,7 @@ td svg {
         height: 16px;
     }
 
-    .classroom_details_buttons > button {
+    .classroom_details_buttons > input.button {
         padding: 0.25rem 1.25rem;
         font-size: 14px;
     }

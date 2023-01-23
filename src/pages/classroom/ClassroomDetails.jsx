@@ -6,6 +6,11 @@ import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
+import { Popup } from '../../containers';
+
+import pianoTerra from './../../assets/piano_terra.svg';
+import pianoPrimo from './../../assets/piano_primo.svg';
+import pianoSecondo from './../../assets/piano_secondo.svg';
 
 class ClassroomDetails extends React.Component {
     constructor(props) {
@@ -17,13 +22,18 @@ class ClassroomDetails extends React.Component {
           items: [],
           teachings: [],
           classroomLocal: [],
-          searchText: ''
+          searchText: '',
+          openMap: false
         }
     }
 
     inputHandler = (e) => {
       let lowerCaseText = e.target.value.toLowerCase();
       this.setState({ searchText: lowerCaseText });
+    }
+
+    toggleMap = () => {
+      this.setState({ openMap: !this.state.openMap});
     }
 
       componentDidMount() {
@@ -97,7 +107,7 @@ class ClassroomDetails extends React.Component {
 
       render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, teachings, classroomLocal, searchText } = this.state;
+        const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap } = this.state;
         const classroom = items[0];
 
         const filteredTeachings = teachings.filter((el) => {
@@ -116,6 +126,21 @@ class ClassroomDetails extends React.Component {
         } else if (!classroom) {
           return <div>Error: no classroom found</div>
         } else {
+            let svgToDisplay;
+            switch(classroom.aula_piano) {
+              case 'Piano Terra':
+                svgToDisplay = pianoTerra;
+              break;
+              case 'Piano Primo':
+                svgToDisplay = pianoPrimo;
+              break;
+              case 'Piano Secondo':
+                svgToDisplay = pianoSecondo;
+              break;
+              default:
+                svgToDisplay = '';
+              break;
+            }
             return (
               <>
                 <div className='classroom_details_controls'>
@@ -133,6 +158,17 @@ class ClassroomDetails extends React.Component {
                     <h2 className='classroom_details_description'>{classroom.aula_indirizzo} - {classroom.aula_piano}</h2>
                     <h3 className='classroom_details_capacity'>Capienza: {classroomLocal.capienza_aula}</h3>
                     <h4 className='classrooms_details_table_counter'>{filteredTeachings.length === 1? 'Trovata' : 'Trovate'} {filteredTeachings.length} {filteredTeachings.length === 1? 'lezione' : 'lezioni'}</h4>
+                    <div className='classroom_details_buttons'>
+                        <input type='button' className='button' value='Statistiche' />
+                        <input type='button' className='button' value='Mappa' onClick={this.toggleMap} />
+                        { openMap && <Popup
+                          content={
+                          <>
+                            <img src={svgToDisplay} alt={classroom.aula_piano} />
+                          </>}
+                          handleClose={this.toggleMap}
+                        />}
+                    </div>
                     <div className='classroom_details_table_container'>
                         <table>
                             <thead>
@@ -178,10 +214,6 @@ class ClassroomDetails extends React.Component {
                                     )})}
                             </tbody>
                         </table>
-                    </div>
-                    <div className='classroom_details_buttons'>
-                        <button>Statistiche</button>
-                        <button>Mappa</button>
                     </div>
                 </div>
               </>
