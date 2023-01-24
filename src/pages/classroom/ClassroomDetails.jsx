@@ -13,6 +13,8 @@ import pianoTerra from './../../assets/piano_terra.svg';
 import pianoPrimo from './../../assets/piano_primo.svg';
 import pianoSecondo from './../../assets/piano_secondo.svg';
 
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush, ReferenceLine, AreaChart, Area } from 'recharts';
+
 class ClassroomDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +28,7 @@ class ClassroomDetails extends React.Component {
           searchText: '',
           dates: [null, null],
           openMap: false,
-          openCharts: false
+          openCharts: false,
         }
     }
 
@@ -121,8 +123,6 @@ class ClassroomDetails extends React.Component {
         const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap, openCharts, dates } = this.state;
         const classroom = items[0];
 
-        console.log(openCharts)
-
         let filteredTeachings = teachings.filter((el) => {
           if (searchText === '') {
             return el;
@@ -131,6 +131,113 @@ class ClassroomDetails extends React.Component {
             return el.inizio.toLowerCase().includes(searchText) || el.fine.toLowerCase().includes(searchText) || el.materia_descrizione.toLowerCase().includes(searchText);
           }
         });
+
+        let data1=[], data2=[];
+        teachings.forEach((t) => {
+          const data_t_format = new Date(t.inizio);
+          const data_t = data_t_format.getDate()+ "/"+(data_t_format.getMonth()+1)+"/"+data_t_format.getFullYear();
+          const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10
+          let reg=0, ris=0, an=0;
+          
+          if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.95)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.15))) {
+            ris=1;
+          } else if (capienzaCalcolata > classroomLocal.capienza_aula) {
+            an=1;
+          } else {
+            reg=1;
+          }
+
+          data1.push({
+            data: data_t,
+            reg: reg,
+            ris: ris,
+            an: an
+          });
+
+          data2.push({
+            data: data_t,
+            pres: capienzaCalcolata
+          })
+        })
+
+        let data1Final=[], data2Final=[];
+
+        data1.forEach((d) => {
+          if(data1Final.length > 0 && data1Final.filter(d2 => d2.data === d.data).length > 0) {
+            data1Final.forEach(d2 => {
+              if(d2.data === d.data) {
+                d2.reg += d.reg;
+                d2.ris += d.ris;
+                d2.an += d.an;
+              }
+            })
+          } else {
+            data1Final.push({
+              data: d.data,
+              reg: d.reg,
+              ris: d.ris,
+              an: d.an
+            })
+          }
+        });
+
+        data2.forEach((d) => {
+          if(data2Final.length > 0 && data2Final.filter(d2 => d2.data === d.data).length > 0) {
+            data2Final.forEach(d2 => {
+              if(d2.data === d.data) {
+                d2.pres = Math.round((d2.pres + d.pres)/2);
+              }
+            })
+          } else {
+            data2Final.push({
+              data: d.data,
+              pres: d.pres
+            })
+          }
+        });
+
+        let data2FinalMonths=[
+          {
+            month: 'Settembre',
+            pres: 0,
+            cont: 0
+          },
+          {
+            month: 'Ottobre',
+            pres: 0,
+            cont: 0
+          },
+          {
+            month: 'Novembre',
+            pres: 0,
+            cont: 0
+          },
+          {
+            month: 'Dicembre',
+            pres: 0,
+            cont: 0
+          }
+        ]
+
+        data2Final.forEach((d) => {
+          if(d.data.includes('/9/')) {
+            data2FinalMonths[0].pres+=d.pres;
+            data2FinalMonths[0].cont++;
+          } else if(d.data.includes('/10/')) {
+            data2FinalMonths[1].pres+=d.pres;
+            data2FinalMonths[1].cont++;
+          } else if(d.data.includes('/11/')) {
+            data2FinalMonths[2].pres+=d.pres;
+            data2FinalMonths[2].cont++;
+          } else if(d.data.includes('/12/')) {
+            data2FinalMonths[3].pres+=d.pres;
+            data2FinalMonths[3].cont++;
+          }
+        })
+
+        data2FinalMonths.forEach((d) => {
+          d.pres = Math.floor(d.pres/d.cont);
+        })
 
         filteredTeachings = filteredTeachings.filter((el) => {
           if(dates[0] == null || dates[1] == null) {
@@ -192,7 +299,51 @@ class ClassroomDetails extends React.Component {
                         { openCharts && <Popup
                           content={
                           <>
-                            <div>Coming soon...</div>
+                            <div className='classrooms_details_charts'>
+                              <h1>Andamento lezioni</h1>
+                                <BarChart
+                                  width={1000}
+                                  height={500}
+                                  data={data1Final}
+                                  margin={{
+                                    top: 20,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                  }}
+                                  >
+                                  <CartesianGrid strokeDasharray="3 3" />
+                                  <XAxis dataKey="data" name='Data' allowDataOverflow={true} />
+                                  <YAxis />
+                                  <Tooltip />
+                                  <Legend />
+                                  <ReferenceLine y={0} stroke="#000" />
+                                  <Brush dataKey="data" height={30} stroke="#bb2e29" />
+                                  <Bar dataKey="reg" name='Regolare' fill="green" />
+                                  <Bar dataKey="ris" name='A rischio' fill="orange" />
+                                  <Bar dataKey="an" name='Anomalia' fill="red" />
+                                </BarChart>
+                                <br /><br />
+                                <h1>Media presenze rilevate</h1>
+                                <AreaChart
+                                  width={1000}
+                                  height={500}
+                                  data={data2FinalMonths}
+                                  margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                  }}
+                                >
+                                  <CartesianGrid strokeDasharray="3 3" />
+                                  <XAxis dataKey="month" />
+                                  <YAxis domain={[0, classroomLocal.capienza_aula + 20]}/>
+                                  <Tooltip />
+                                  <ReferenceLine y={100} label={{ position: 'top',  value: 'Capienza aula', fill: 'red', fontSize: 14 }} stroke="#333" strokeDasharray="3 3" />
+                                  <Area type="monotone" dataKey="pres" name='Presenze' stroke="#bb2e29" fill="#bb2e29" />
+                                </AreaChart>
+                            </div>
                           </>}
                           handleClose={this.toggleCharts}
                         />}
