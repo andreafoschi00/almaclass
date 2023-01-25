@@ -65,6 +65,11 @@ td svg {
     float: right;
 }
 
+.teaching_details_charts {
+    display: flex;
+    flex-direction: row;
+}
+
 @media screen and (max-width: 1024px) {
     .teaching_details_container{
         width: 50vw;

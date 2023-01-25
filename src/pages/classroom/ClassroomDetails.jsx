@@ -353,7 +353,7 @@ class ClassroomDetails extends React.Component {
                                   data={data1Final}
                                   margin={{
                                     top: 20,
-                                    right: 30,
+                                    right: 100,
                                     left: 20,
                                     bottom: 5,
                                   }}
@@ -436,7 +436,9 @@ class ClassroomDetails extends React.Component {
                         { openMap && <Popup
                           content={
                           <>
+                          <div className="img-box">
                             <img src={svgToDisplay} alt={classroom.aula_piano} />
+                          </div>
                           </>}
                           handleClose={this.toggleMap}
                         />}

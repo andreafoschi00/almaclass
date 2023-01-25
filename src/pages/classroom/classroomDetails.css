@@ -103,6 +103,7 @@ td svg {
 }
 
 @media screen and (max-width: 425px) {
+    
     .classroom_details_container{
         width: 66vw;
         position: relative;
