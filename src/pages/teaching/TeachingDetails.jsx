@@ -113,34 +113,36 @@ class TeachingDetails extends React.Component {
     }
 
     render() {
-      const RADIAN = Math.PI / 180;
-      const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-      const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-      const x = cx + radius * Math.cos(-midAngle * RADIAN);
-      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+        const RADIAN = Math.PI / 180;
+        const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-        return (
-          <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-            {`${(percent * 100).toFixed(0)}%`}
-          </text>
-        );
-      };
+          return (
+            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+              {`${(percent * 100).toFixed(0)}%`}
+            </text>
+          );
+        };
 
         let displayFirst, displaySecond, displayThird;
         const { error, isLoaded, items, classrooms, searchText, classroomsLocal, dates, openChartsClassrooms, openChartsTeaching } = this.state;
         const teaching = items[0];
 
-        let classroomsData = [], data2=[];
+        let classroomsData = [], data2=[], count=0;
 
         classrooms.forEach(c => {
           if(classroomsData.length === 0 || classroomsData.filter(c2 => c2.aula_nome === c.aula_nome).length === 0) {
             const classroom_attuale = classroomsLocal.filter((cl) => cl.id === c.aula_codice);
-            const capienza_attuale = classroom_attuale[0].capienza_aula
-            classroomsData.push({
-              aula_nome: c.aula_nome,
-              capienza: capienza_attuale,
-              lezioni: []
-            })
+            if(classroom_attuale.length > 0) {
+              const capienza_attuale = classroom_attuale[0].capienza_aula;
+              classroomsData.push({
+                aula_nome: c.aula_nome,
+                capienza: capienza_attuale,
+                lezioni: []
+              })
+            }
           }
         });
 
@@ -148,25 +150,27 @@ class TeachingDetails extends React.Component {
           const data_t_format = new Date(c.inizio);
           const data_t = data_t_format.getDate()+ "/"+(data_t_format.getMonth()+1)+"/"+data_t_format.getFullYear();
           const classroom_attuale = classroomsLocal.filter((cl) => cl.id === c.aula_codice);
-          const capienza_attuale = classroom_attuale[0].capienza_aula;
-          const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
-
-          let reg=0, ris=0, an=0;
-          
-          if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
-            ris=1;
-          } else if (capienzaCalcolata > capienza_attuale) {
-            an=1;
-          } else {
-            reg=1;
+          if(classroom_attuale.length > 0) {
+            count++;
+            const capienza_attuale = classroom_attuale[0].capienza_aula;
+            const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
+            let reg=0, ris=0, an=0;
+            
+            if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
+              ris=1;
+            } else if (capienzaCalcolata > capienza_attuale) {
+              an=1;
+            } else {
+              reg=1;
+            }
+            
+            data2.push({
+              data: data_t,
+              ris: ris,
+              an: an,
+              reg: reg
+            })
           }
-
-          data2.push({
-            data: data_t,
-            ris: ris,
-            an: an,
-            reg: reg
-          })
         });
 
         classrooms.forEach(c => {
@@ -314,34 +318,38 @@ class TeachingDetails extends React.Component {
                     { openChartsClassrooms && <Popup
                       content={
                         <>
+                        {classrooms.length === 0 ? <div>Non si sono ancora svolte lezioni per questo insegnamento.</div> : 
+                        <>
                           {classroomsData.map((cl, i) => {
-                            return(
-                              <>
-                                <h1>{cl.aula_nome}</h1>
-                                <h3>Capienza: {cl.capienza}</h3>
-                                <AreaChart
-                                    width={1000}
-                                    height={500}
-                                    data={cl.lezioni}
-                                    margin={{
-                                      top: 10,
-                                      right: 30,
-                                      left: 60,
-                                      bottom: 125,
-                                    }}
-                                    >
-                                    <CartesianGrid strokeDasharray="4 2" />
-                                    <XAxis dataKey="data" angle={-45} textAnchor="end" interval={0} />
-                                    <YAxis domain={[0, cl.capienza + 20]}/>
-                                    <Tooltip />
-                                    <ReferenceLine y={cl.capienza} label={{ position: 'top',  value: 'Capienza aula', fill: 'blue', fontSize: 14 }} stroke="#333" strokeDasharray="4 2" />
-                                    <Area type="monotone" dataKey="presenze" name='Presenze' stroke="#bb2e29" fill="#bb2e29" dot={{ stroke: '#6b0808', strokeWidth: 1 }} >
-                                      <LabelList dataKey='presenze' position='top'/>
-                                    </Area>
-                                </AreaChart>
-                              </>
-                            )
-                          })}
+                              return(
+                                <>
+                                  <h1>{cl.aula_nome}</h1>
+                                  <h3>Capienza: {cl.capienza}</h3>
+                                  <AreaChart
+                                      width={1000}
+                                      height={500}
+                                      data={cl.lezioni}
+                                      margin={{
+                                        top: 10,
+                                        right: 30,
+                                        left: 60,
+                                        bottom: 125,
+                                      }}
+                                      >
+                                      <CartesianGrid strokeDasharray="4 2" />
+                                      <XAxis dataKey="data" angle={-45} textAnchor="end" interval={0} />
+                                      <YAxis domain={[0, cl.capienza + 20]}/>
+                                      <Tooltip />
+                                      <ReferenceLine y={cl.capienza} label={{ position: 'top',  value: 'Capienza aula', fill: 'blue', fontSize: 14 }} stroke="#333" strokeDasharray="4 2" />
+                                      <Area type="monotone" dataKey="presenze" name='Presenze' stroke="#bb2e29" fill="#bb2e29" dot={{ stroke: '#6b0808', strokeWidth: 1 }} >
+                                        <LabelList dataKey='presenze' position='top'/>
+                                      </Area>
+                                  </AreaChart>
+                                </>
+                              )
+                            })}
+                        </>
+                        }
                         </>}
                       handleClose={this.toggleChartsClassrooms}
                     />}
@@ -349,46 +357,52 @@ class TeachingDetails extends React.Component {
                     { openChartsTeaching && <Popup
                       content={
                         <>
-                          <h1>Lezioni in sintesi</h1>
-                          <h3>Lezioni totali: {filteredClassrooms.length}</h3>
-                          <div className="teaching_details_charts">
-                            <BarChart
-                              width={500}
-                              height={500}
-                              data={data2FinalMonths}
-                              margin={{
-                                top: 20,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                              }}
-                              >
-                              <CartesianGrid strokeDasharray="3 3" />
-                              <XAxis dataKey="month" />
-                              <YAxis />
-                              <Tooltip />
-                              <Legend />
-                              <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
-                              <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
-                              <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
-                            </BarChart>
-                            <PieChart width={500} height={500}>
-                              <Pie
-                                data={data3Filtered}
-                                cx="50%"
-                                cy="50%"
-                                labelLine={false}
-                                label={renderCustomizedLabel}
-                                outerRadius={200}
-                                fill="#8884d8"
-                                dataKey="value"
-                              >
-                                {data3Filtered.map((entry, index) => (
-                                  <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                              </Pie>
-                            </PieChart>
-                          </div>
+                        {classrooms.length === 0 ? <div>Non si sono ancora svolte lezioni per questo insegnamento.</div> : 
+                          <>
+                            <h1>Lezioni in sintesi</h1>
+                            <div className="teaching_details_charts">
+                              <BarChart
+                                width={500}
+                                height={500}
+                                data={data2FinalMonths}
+                                margin={{
+                                  top: 20,
+                                  right: 30,
+                                  left: 20,
+                                  bottom: 5,
+                                }}
+                                >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="month" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
+                                <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
+                                <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
+                              </BarChart>
+                              <div className="pie-chart-container">
+                                <h3>Lezioni svolte: {count}</h3>
+                                <PieChart width={500} height={500}>
+                                  <Pie
+                                    data={data3Filtered}
+                                    cx="50%"
+                                    cy="50%"
+                                    labelLine={false}
+                                    label={renderCustomizedLabel}
+                                    outerRadius={200}
+                                    fill="#8884d8"
+                                    dataKey="value"
+                                    >
+                                    {data3Filtered.map((entry, index) => (
+                                      <Cell key={`cell-${index}`} fill={entry.color} />
+                                      ))}
+                                  </Pie>
+                                </PieChart>
+                              </div>
+                            </div>
+                          </>
+                        }
                         </>}
                       handleClose={this.toggleChartsTeaching}
                     />}

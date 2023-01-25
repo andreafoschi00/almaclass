@@ -197,6 +197,20 @@ app.get('/api/teachings/allclassroomsinteaching/', (req, res) => {
         }
     });
 })
+
+app.get('/api/courses/alllessonsincourse', (req, res) => {
+    const corso_codice = req.query.corso_codice;
+    request.get({
+        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, a.aula_codice FROM orari_2022 as o, aule_2022 AS a,insegnamenti_2022_it AS i WHERE o.aula_codici LIKE CONCAT('%', a.aula_codice, '%') AND o.componente_id = i.componente_id AND i.corso_codice=\'${corso_codice}\' ORDER BY o.inizio ASC`,
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+})
  
 app.listen(port, () => {
   // perform a database connection when server starts
