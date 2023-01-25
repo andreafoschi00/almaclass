@@ -113,8 +113,6 @@ class TeachingDetails extends React.Component {
     }
 
     render() {
-      const COLORS = ['green', 'orange', 'red'];
-
       const RADIAN = Math.PI / 180;
       const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
       const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -385,7 +383,7 @@ class TeachingDetails extends React.Component {
                                 fill="#8884d8"
                                 dataKey="value"
                               >
-                                {data3.map((entry, index) => (
+                                {data3Filtered.map((entry, index) => (
                                   <Cell key={`cell-${index}`} fill={entry.color} />
                                 ))}
                               </Pie>
