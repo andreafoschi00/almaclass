@@ -132,11 +132,14 @@ class ClassroomDetails extends React.Component {
           }
         });
 
-        let data1=[], data2=[];
+        let data1=[], data2=[], data3=[];
         teachings.forEach((t) => {
           const data_t_format = new Date(t.inizio);
+          const data2_t_format = new Date (t.fine);
           const data_t = data_t_format.getDate()+ "/"+(data_t_format.getMonth()+1)+"/"+data_t_format.getFullYear();
-          const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10
+          const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10;
+          const diff = data2_t_format - data_t_format;
+          const hours = new Date(diff).getHours() - 1;
           let reg=0, ris=0, an=0;
           
           if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.95)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.15))) {
@@ -157,8 +160,13 @@ class ClassroomDetails extends React.Component {
           data2.push({
             data: data_t,
             pres: capienzaCalcolata
+          });
+
+          data3.push({
+            data: data_t,
+            hours: hours
           })
-        })
+        });
 
         let data1Final=[], data2Final=[];
 
@@ -217,7 +225,7 @@ class ClassroomDetails extends React.Component {
             pres: 0,
             cont: 0
           }
-        ]
+        ];
 
         data2Final.forEach((d) => {
           if(d.data.includes('/9/')) {
@@ -233,11 +241,48 @@ class ClassroomDetails extends React.Component {
             data2FinalMonths[3].pres+=d.pres;
             data2FinalMonths[3].cont++;
           }
-        })
+        });
+
+        let data4FinalMonths=data2FinalMonths;
 
         data2FinalMonths.forEach((d) => {
           d.pres = Math.floor(d.pres/d.cont);
-        })
+        });
+
+        let data3FinalMonths=[
+          {
+            month: 'Settembre',
+            hours: 0,
+          },
+          {
+            month: 'Ottobre',
+            hours: 0,
+          },
+          {
+            month: 'Novembre',
+            hours: 0,
+          },
+          {
+            month: 'Dicembre',
+            hours: 0,
+          }
+        ];
+
+        data3.forEach((d) => {
+          if(d.data.includes('/9/')) {
+            data3FinalMonths[0].hours+=d.hours;
+          } else if(d.data.includes('/10/')) {
+            data3FinalMonths[1].hours+=d.hours;
+          } else if(d.data.includes('/11/')) {
+            data3FinalMonths[2].hours+=d.hours;
+          } else if(d.data.includes('/12/')) {
+            data3FinalMonths[3].hours+=d.hours
+          }
+        });
+
+        data4FinalMonths.forEach(d => {
+          d.pres = Math.round(d.pres / classroomLocal.capienza_aula * 1000) / 10;
+        });
 
         filteredTeachings = filteredTeachings.filter((el) => {
           if(dates[0] == null || dates[1] == null) {
@@ -296,9 +341,10 @@ class ClassroomDetails extends React.Component {
                     <h4 className='classrooms_details_table_counter'>{filteredTeachings.length === 1? 'Trovata' : 'Trovate'} {filteredTeachings.length} {filteredTeachings.length === 1? 'lezione' : 'lezioni'}</h4>
                     <div className='classroom_details_buttons'>
                         <input type='button' className='button' value='Statistiche' onClick={this.toggleCharts}/>
-                        { openCharts && <Popup
+                        {openCharts && <Popup 
                           content={
                           <>
+                          {teachings.length === 0 ? <div>In quest'aula non si sono ancora svolte lezioni.</div> : 
                             <div className='classrooms_details_charts'>
                               <h1>Andamento lezioni</h1>
                                 <BarChart
@@ -314,7 +360,7 @@ class ClassroomDetails extends React.Component {
                                   >
                                   <CartesianGrid strokeDasharray="3 3" />
                                   <XAxis dataKey="data" name='Data' allowDataOverflow={true} />
-                                  <YAxis />
+                                  <YAxis minTickGap={1} interval={0} />
                                   <Tooltip />
                                   <Legend />
                                   <ReferenceLine y={0} stroke="#000" />
@@ -335,15 +381,54 @@ class ClassroomDetails extends React.Component {
                                     left: 0,
                                     bottom: 0,
                                   }}
-                                >
+                                  >
                                   <CartesianGrid strokeDasharray="3 3" />
                                   <XAxis dataKey="month" />
                                   <YAxis domain={[0, classroomLocal.capienza_aula + 20]}/>
                                   <Tooltip />
-                                  <ReferenceLine y={100} label={{ position: 'top',  value: 'Capienza aula', fill: 'red', fontSize: 14 }} stroke="#333" strokeDasharray="3 3" />
+                                  <ReferenceLine y={classroomLocal.capienza_aula} label={{ position: 'top',  value: 'Capienza aula', fill: 'blue', fontSize: 14 }} stroke="#333" strokeDasharray="3 3" />
                                   <Area type="monotone" dataKey="pres" name='Presenze' stroke="#bb2e29" fill="#bb2e29" />
                                 </AreaChart>
+                                <br /><br />
+                                <h1>Ore di lezione complessive</h1>
+                                <AreaChart
+                                  width={1000}
+                                  height={500}
+                                  data={data3FinalMonths}
+                                  margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                  }}
+                                  >
+                                  <CartesianGrid strokeDasharray="3 3" />
+                                  <XAxis dataKey="month" />
+                                  <YAxis />
+                                  <Tooltip />
+                                  <Area type="monotone" dataKey="hours" name='Ore' stroke="#bb2e29" fill="#bb2e29" />
+                                </AreaChart>
+                                <br /><br />
+                                <h1>Tasso di occupazione (%)</h1>
+                                <AreaChart
+                                  width={1000}
+                                  height={500}
+                                  data={data4FinalMonths}
+                                  margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                  }}
+                                  >
+                                  <CartesianGrid strokeDasharray="3 3" />
+                                  <XAxis dataKey="month" />
+                                  <YAxis domain={[0, 100]}/>
+                                  <Tooltip />
+                                  <Area type="monotone" dataKey="pres" name='Tasso' stroke="#bb2e29" fill="#bb2e29" />
+                                </AreaChart>
                             </div>
+                          }
                           </>}
                           handleClose={this.toggleCharts}
                         />}
