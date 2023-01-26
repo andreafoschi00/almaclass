@@ -147,7 +147,7 @@ class Course extends React.Component {
               />
           </div>
           <div className="course_controls_select_scope">
-            <FormControl sx={{ width: 200 }} color='error'>
+            <FormControl sx={{ width: 200, backgroundColor: 'white' }} color='error'>
               <InputLabel id="scope-select-label">Ambito</InputLabel>
               <Select
                 labelId="scope-select-autowidth-label"
@@ -167,7 +167,7 @@ class Course extends React.Component {
             </FormControl>
           </div>
           <div className="course_controls_select_type">
-            <FormControl sx={{ width: 200 }} color='error'>
+            <FormControl sx={{ width: 200, backgroundColor: 'white' }} color='error'>
               <InputLabel id="select-label">Tipo</InputLabel>
               <Select
                 labelId="type-select-autowidth-label"

@@ -179,7 +179,7 @@ class Classroom extends React.Component {
               />
           </div>
           <div className="classroom_controls_select">
-            <FormControl sx={{ width: 200 }} color='error'>
+            <FormControl sx={{ width: 200, backgroundColor: 'white' }} color='error'>
               <InputLabel id="select-label">Piano</InputLabel>
               <Select
                 labelId="select-autowidth-label"

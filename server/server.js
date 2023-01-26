@@ -201,7 +201,21 @@ app.get('/api/teachings/allclassroomsinteaching/', (req, res) => {
 app.get('/api/courses/alllessonsincourse', (req, res) => {
     const corso_codice = req.query.corso_codice;
     request.get({
-        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, a.aula_codice FROM orari_2022 as o, aule_2022 AS a,insegnamenti_2022_it AS i WHERE o.aula_codici LIKE CONCAT('%', a.aula_codice, '%') AND o.componente_id = i.componente_id AND i.corso_codice=\'${corso_codice}\' ORDER BY o.inizio ASC`,
+        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, a.aula_codice FROM orari_2022 as o, aule_2022 AS a, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE CONCAT('%', a.aula_codice, '%') AND o.componente_id = i.componente_id AND i.corso_codice=\'${corso_codice}\' ORDER BY o.inizio ASC`,
+        json: true
+    }, (error, response) => {
+        if(error) {
+            return res.send(error);
+        } else {
+            res.send(response);
+        }
+    });
+})
+
+app.get('/api/dashboard/alllessonsindate', (req, res) => {
+    const data = req.query.data;
+    request.get({
+        url: `https://dati.unibo.it/api/3/action/datastore_search_sql?sql= SELECT o.inizio, o.fine, a.aula_codice, a.aula_nome, i.materia_descrizione, i.componente_id FROM orari_2022 as o, aule_2022 AS a, insegnamenti_2022_it AS i WHERE o.aula_codici LIKE \'6137%\' AND o.aula_codici = a.aula_codice AND o.componente_id = i.componente_id AND ${data} >= o.inizio AND ${data} <= o.fine GROUP BY o.inizio, o.fine, a.aula_codice, a.aula_nome, i.materia_descrizione, i.componente_id ORDER BY o.inizio ASC`,
         json: true
     }, (error, response) => {
         if(error) {
