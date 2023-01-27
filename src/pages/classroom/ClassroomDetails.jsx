@@ -12,6 +12,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import pianoTerra from './../../assets/piano_terra.svg';
 import pianoPrimo from './../../assets/piano_primo.svg';
 import pianoSecondo from './../../assets/piano_secondo.svg';
+import { SvgLoader, SvgProxy } from 'react-svgmt';
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush, ReferenceLine, AreaChart, Area } from 'recharts';
 
@@ -300,13 +301,13 @@ class ClassroomDetails extends React.Component {
         } else if (!classroom) {
           return <div>Error: no classroom found</div>
         } else {
-            let svgToDisplay;
+            let svgToDisplay, classroomMap=[];
             switch(classroom.aula_piano) {
               case 'Piano Terra':
                 svgToDisplay = pianoTerra;
               break;
               case 'Piano Primo':
-                svgToDisplay = pianoPrimo;
+                svgToDisplay = pianoPrimo
               break;
               case 'Piano Secondo':
                 svgToDisplay = pianoSecondo;
@@ -315,6 +316,13 @@ class ClassroomDetails extends React.Component {
                 svgToDisplay = '';
               break;
             }
+
+            let codice = classroom.aula_codice;
+            if(codice === '6137_WPTE_041') {
+              codice = '6137_WPTE_042';
+            }
+            classroomMap.push(codice);
+            
             return (
               <>
                 <div className='classroom_details_controls'>
@@ -436,9 +444,18 @@ class ClassroomDetails extends React.Component {
                         { openMap && <Popup
                           content={
                           <>
-                          <div className="img-box">
-                            <img src={svgToDisplay} alt={classroom.aula_piano} />
-                          </div>
+                            <div className="img-box">
+                              <SvgLoader path={svgToDisplay}>
+                                <SvgProxy selector={"path"} fill="black" />
+                                {classroomMap.map(cl => (
+                                  <SvgProxy
+                                    key={cl}
+                                    selector={"#_" + cl}
+                                    class='st6'
+                                  />
+                                ))}
+                              </SvgLoader>
+                            </div>
                           </>}
                           handleClose={this.toggleMap}
                         />}
