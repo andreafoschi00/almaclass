@@ -451,7 +451,10 @@ class ClassroomDetails extends React.Component {
                                   <SvgProxy
                                     key={cl}
                                     selector={"#_" + cl}
-                                    class='st6'
+                                    stroke='#BB2E29'
+                                    stroke-width='2'
+                                    class='selected'
+                                    fill='url(#fillPattern)'
                                   />
                                 ))}
                               </SvgLoader>

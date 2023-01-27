@@ -11,6 +11,13 @@
 	.st5{fill:#33CC33;}
 	.st6{fill:#BB2E29;}
 </style>
+<pattern id="fillPattern"
+         x="10" y="10" width="20" height="20"
+         patternUnits="userSpaceOnUse"
+         patternTransform="rotate(35)"
+        >
+    <circle cx="10" cy="10" r="10" style="stroke: none; fill: #BB2E29" />
+</pattern>
 <path class="st0" d="M410.8,258.5v10.4"/>
 <polygon class="st1" points="862.7,147.8 774.5,147.8 774.7,160.4 392.5,160.4 392.5,150.4 262.9,150.4 262.9,331 394.2,331
 	394.2,312.3 457,312.3 457,292.5 725.3,292.5 725.3,292.2 755,292.2 755,307.3 732,307.3 732,537.8 651,537.8 651,498.1
