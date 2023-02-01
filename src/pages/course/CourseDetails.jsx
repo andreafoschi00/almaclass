@@ -269,88 +269,90 @@ class CourseDetails extends React.Component {
                     sx={{ backgroundColor: 'white' }}
                   />
                 </div>
-                <div className='course_details_container'>
-                    <h1 className='course_details_name'>{course.corso_descrizione}</h1>
-                    <h2 className='course_details_type'>Tipo di corso: {course.tipologia}</h2>
-                    <h3 className='course_details_department'>Ambito: {course.ambiti}</h3>
-                    <h3 className='course_details_access'>Accesso: {course.accesso}</h3>
-                    <h3 className='course_details_language'>Lingue: {course.lingue.replace(' ', ', ')}</h3>
-                    <h4 className='course_details_table_counter'>{filteredTeachings.length === 1? 'Trovato' : 'Trovati'} {filteredTeachings.length} {filteredTeachings.length === 1? 'insegnamento' : 'insegnamenti'}</h4>
-                    <div className='course_details_buttons'>
-                      <input type='button' className='button' value='Statistiche Corso' onClick={this.toggleCharts}/>
-                        { openCharts && <Popup
-                          content={
-                            <>
-                              {lessons.length === 0 ? <div>Non si sono ancora tenute lezioni per questo corso.</div> :
+                <div className="course_details_container_box">
+                  <div className='course_details_container'>
+                      <h1 className='course_details_name'>{course.corso_descrizione}</h1>
+                      <h2 className='course_details_type'>Tipo di corso: {course.tipologia}</h2>
+                      <h3 className='course_details_department'>Ambito: {course.ambiti}</h3>
+                      <h3 className='course_details_access'>Accesso: {course.accesso}</h3>
+                      <h3 className='course_details_language'>Lingue: {course.lingue.replace(' ', ', ')}</h3>
+                      <h4 className='course_details_table_counter'>{filteredTeachings.length === 1? 'Trovato' : 'Trovati'} {filteredTeachings.length} {filteredTeachings.length === 1? 'insegnamento' : 'insegnamenti'}</h4>
+                      <div className='course_details_buttons'>
+                        <input type='button' className='button' value='Statistiche Corso' onClick={this.toggleCharts}/>
+                          { openCharts && <Popup
+                            content={
                               <>
-                              <h1>Il corso in sintesi</h1>
-                              <div className='course_details_charts'>
-                                <BarChart
-                                  width={500}
-                                  height={500}
-                                  data={dataFinalMonths}
-                                  margin={{
-                                    top: 20,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                  }}
-                                  >
-                                  <CartesianGrid strokeDasharray="3 3" />
-                                  <XAxis dataKey="month" />
-                                  <YAxis />
-                                  <Tooltip />
-                                  <Legend />
-                                  <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
-                                  <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
-                                  <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
-                                </BarChart>
-                                <div className="pie-chart-container">
-                                  <h3>Lezioni svolte: {count}</h3>
-                                  <PieChart width={500} height={500}>
-                                    <Pie
-                                      data={data2Filtered}
-                                      cx="50%"
-                                      cy="50%"
-                                      labelLine={false}
-                                      label={renderCustomizedLabel}
-                                      outerRadius={200}
-                                      fill="#8884d8"
-                                      dataKey="value"
-                                      >
-                                      {data2Filtered.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.color} />
-                                        ))}
-                                    </Pie>
-                                  </PieChart>
+                                {lessons.length === 0 ? <div>Non si sono ancora tenute lezioni per questo corso.</div> :
+                                <>
+                                <h1>Il corso in sintesi</h1>
+                                <div className='course_details_charts'>
+                                  <BarChart
+                                    width={500}
+                                    height={500}
+                                    data={dataFinalMonths}
+                                    margin={{
+                                      top: 20,
+                                      right: 30,
+                                      left: 20,
+                                      bottom: 5,
+                                    }}
+                                    >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="month" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
+                                    <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
+                                    <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
+                                  </BarChart>
+                                  <div className="pie-chart-container">
+                                    <h3>Lezioni svolte: {count}</h3>
+                                    <PieChart width={500} height={500}>
+                                      <Pie
+                                        data={data2Filtered}
+                                        cx="50%"
+                                        cy="50%"
+                                        labelLine={false}
+                                        label={renderCustomizedLabel}
+                                        outerRadius={200}
+                                        fill="#8884d8"
+                                        dataKey="value"
+                                        >
+                                        {data2Filtered.map((entry, index) => (
+                                          <Cell key={`cell-${index}`} fill={entry.color} />
+                                          ))}
+                                      </Pie>
+                                    </PieChart>
+                                  </div>
                                 </div>
-                              </div>
+                                </>}
                               </>}
-                            </>}
-                          handleClose={this.toggleCharts}
-                        />}
-                    </div>
-                    <div className='course_details_table_container'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className='course_details_table_name'>Nome</th>
-                                    <th className='course_details_table_language'>Lingua</th>
-                                    <th className='course_details_table_teachers'>Docente</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredTeachings.map((insegnamento, i) => {
+                            handleClose={this.toggleCharts}
+                          />}
+                      </div>
+                      <div className='course_details_table_container'>
+                          <table>
+                              <thead>
+                                  <tr>
+                                      <th className='course_details_table_name'>Nome</th>
+                                      <th className='course_details_table_language'>Lingua</th>
+                                      <th className='course_details_table_teachers'>Docente</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  {filteredTeachings.map((insegnamento, i) => {
                                     return (
-                                        <tr key={i}>
-                                            <td><Link className='toTeaching' to={'/teaching/details/?componente_id=' + insegnamento.componente_id}>{insegnamento.materia_descrizione}</Link></td>
-                                            <td>{insegnamento.lingua}</td>
-                                            <td>{insegnamento.docente_nome}</td>
-                                        </tr>
-                                    )})}
-                            </tbody>
-                        </table>
-                    </div>
+                                      <tr key={i}>
+                                              <td><Link className='toTeaching' to={'/teaching/details/?componente_id=' + insegnamento.componente_id}>{insegnamento.materia_descrizione}</Link></td>
+                                              <td>{insegnamento.lingua}</td>
+                                              <td>{insegnamento.docente_nome}</td>
+                                          </tr>
+                                      )})}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
                 </div>
               </>
             )

@@ -342,7 +342,8 @@ class ClassroomDetails extends React.Component {
                     format='dd/MM/yyyy'
                     />
                 </div>
-                <div className='classroom_details_container'>
+                <div className='classroom_details_container_box'>
+                  <div className="classroom_details_container">
                     <h1 className='classroom_details_title'>{classroom.aula_nome}</h1>
                     <h2 className='classroom_details_description'>{classroom.aula_indirizzo} - {classroom.aula_piano}</h2>
                     <h3 className='classroom_details_capacity'>Capienza: {classroomLocal.capienza_aula}</h3>
@@ -509,6 +510,7 @@ class ClassroomDetails extends React.Component {
                             </tbody>
                         </table>
                     </div>
+                  </div>
                 </div>
               </>
             )

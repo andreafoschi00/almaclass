@@ -9,21 +9,25 @@
 }
 
 .teaching_container {
+    width: 33vw;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.teaching_container_box {
     border-style: solid;
     border-width: 1px;
     border-color: var(--primary-color);
     border-radius: 5px;
     background-color: white;
-    width: 33vw;
-    height: 80vh;
-    overflow-y: scroll;
+    padding: 5px 0;
 }
 
-.layout_container:has(.sidebar.close) .teaching_container_list > .teaching_container{
+.layout_container:has(.sidebar.close) .teaching_container_list .teaching_container{
     width: 80vw;
 }
 
-.layout_container:has(.sidebar.open) .teaching_container_list > .teaching_container{
+.layout_container:has(.sidebar.open) .teaching_container_list .teaching_container{
     width: 66vw;
 }
 
@@ -63,7 +67,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .layout_container:has(.sidebar.open) .teaching_container_list > .teaching_container {
+    .layout_container:has(.sidebar.open) .teaching_container_list .teaching_container {
         width: 50vw;
     }
 
@@ -103,11 +107,11 @@
 }
 
 @media screen and (max-width: 425px) {
-    .layout_container:has(.sidebar.close) .teaching_container_list > .teaching_container{
+    .layout_container:has(.sidebar.close) .teaching_container_list .teaching_container{
         width: 60vw;
     }
 
-    .layout_container:has(.sidebar.open) .teaching_container_list > .teaching_container{
+    .layout_container:has(.sidebar.open) .teaching_container_list .teaching_container{
         display: none;
     }
 

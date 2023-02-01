@@ -1,17 +1,21 @@
 .course_details_container{
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--primary-color);
-    border-radius: 5px;
-    background-color: white;
     width: 70vw;
     height: 80vh;
-    overflow-y: scroll;
+    overflow: auto;
     padding: 2.5rem 2rem 0.5rem 2rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+}
+
+.course_details_container_box {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--primary-color);
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px 0;
 }
 
 .layout_container:has(.sidebar.close) .course_details_container {

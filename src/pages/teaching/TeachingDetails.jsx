@@ -307,155 +307,157 @@ class TeachingDetails extends React.Component {
                     format='dd/MM/yyyy'
                     />
                 </div>
-                <div className='teaching_details_container'>
-                <h1 className='teaching_details_name'>{teaching.materia_descrizione}</h1>
-                <h1 className='teaching_details_course'>Corso: <Link className='toCourse' to={'/course/details/?corso_codice=' + teaching.corso_codice}>{teaching.corso_descrizione}</Link></h1>
-                <h2 className='teaching_details_teachers'>Docente: {teaching.docente_nome}</h2>
-                <h3 className='teaching_details_language'>Lingua: {teaching.lingua}</h3>
-                <h4 className='teaching_details_table_counter'>{filteredClassrooms.length === 1? 'Trovata' : 'Trovate'} {filteredClassrooms.length} {filteredClassrooms.length === 1? 'lezione' : 'lezioni'}</h4>
-                <div className='teaching_details_buttons'>
-                  <input type='button' className='button' value='Statistiche Aule' onClick={this.toggleChartsClassrooms}/>
-                    { openChartsClassrooms && <Popup
-                      content={
-                        <>
-                        {classrooms.length === 0 ? <div>Non si sono ancora svolte lezioni per questo insegnamento.</div> : 
-                        <>
-                          {classroomsData.map((cl, i) => {
-                              return(
-                                <>
-                                  <h1>{cl.aula_nome}</h1>
-                                  <h3>Capienza: {cl.capienza}</h3>
-                                  <AreaChart
-                                      width={1000}
-                                      height={500}
-                                      data={cl.lezioni}
-                                      margin={{
-                                        top: 10,
-                                        right: 30,
-                                        left: 60,
-                                        bottom: 125,
-                                      }}
-                                      >
-                                      <CartesianGrid strokeDasharray="4 2" />
-                                      <XAxis dataKey="data" angle={-45} textAnchor="end" interval={0} />
-                                      <YAxis domain={[0, cl.capienza + 20]}/>
-                                      <Tooltip />
-                                      <ReferenceLine y={cl.capienza} label={{ position: 'top',  value: 'Capienza aula', fill: 'blue', fontSize: 14 }} stroke="#333" strokeDasharray="4 2" />
-                                      <Area type="monotone" dataKey="presenze" name='Presenze' stroke="#bb2e29" fill="#bb2e29" dot={{ stroke: '#6b0808', strokeWidth: 1 }} >
-                                        <LabelList dataKey='presenze' position='top'/>
-                                      </Area>
-                                  </AreaChart>
-                                </>
-                              )
-                            })}
-                        </>
-                        }
-                        </>}
-                      handleClose={this.toggleChartsClassrooms}
-                    />}
-                  <input type='button' className='button' value='Statistiche insegnamento' onClick={this.toggleChartsTeaching} />
-                    { openChartsTeaching && <Popup
-                      content={
-                        <>
-                        {classrooms.length === 0 ? <div>Non si sono ancora svolte lezioni per questo insegnamento.</div> : 
-                          <>
-                            <h1>Lezioni in sintesi</h1>
-                            <div className="teaching_details_charts">
-                              <BarChart
-                                width={500}
-                                height={500}
-                                data={data2FinalMonths}
-                                margin={{
-                                  top: 20,
-                                  right: 30,
-                                  left: 20,
-                                  bottom: 5,
-                                }}
-                                >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="month" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
-                                <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
-                                <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
-                              </BarChart>
-                              <div className="pie-chart-container">
-                                <h3>Lezioni svolte: {count}</h3>
-                                <PieChart width={500} height={500}>
-                                  <Pie
-                                    data={data3Filtered}
-                                    cx="50%"
-                                    cy="50%"
-                                    labelLine={false}
-                                    label={renderCustomizedLabel}
-                                    outerRadius={200}
-                                    fill="#8884d8"
-                                    dataKey="value"
+                <div className='teaching_details_container_box'>
+                  <div className="teaching_details_container">
+                    <h1 className='teaching_details_name'>{teaching.materia_descrizione}</h1>
+                    <h1 className='teaching_details_course'>Corso: <Link className='toCourse' to={'/course/details/?corso_codice=' + teaching.corso_codice}>{teaching.corso_descrizione}</Link></h1>
+                    <h2 className='teaching_details_teachers'>Docente: {teaching.docente_nome}</h2>
+                    <h3 className='teaching_details_language'>Lingua: {teaching.lingua}</h3>
+                    <h4 className='teaching_details_table_counter'>{filteredClassrooms.length === 1? 'Trovata' : 'Trovate'} {filteredClassrooms.length} {filteredClassrooms.length === 1? 'lezione' : 'lezioni'}</h4>
+                    <div className='teaching_details_buttons'>
+                      <input type='button' className='button' value='Statistiche Aule' onClick={this.toggleChartsClassrooms}/>
+                        { openChartsClassrooms && <Popup
+                          content={
+                            <>
+                            {classrooms.length === 0 ? <div>Non si sono ancora svolte lezioni per questo insegnamento.</div> : 
+                            <>
+                              {classroomsData.map((cl, i) => {
+                                return(
+                                  <>
+                                      <h1>{cl.aula_nome}</h1>
+                                      <h3>Capienza: {cl.capienza}</h3>
+                                      <AreaChart
+                                          width={1000}
+                                          height={500}
+                                          data={cl.lezioni}
+                                          margin={{
+                                            top: 10,
+                                            right: 30,
+                                            left: 60,
+                                            bottom: 125,
+                                          }}
+                                          >
+                                          <CartesianGrid strokeDasharray="4 2" />
+                                          <XAxis dataKey="data" angle={-45} textAnchor="end" interval={0} />
+                                          <YAxis domain={[0, cl.capienza + 20]}/>
+                                          <Tooltip />
+                                          <ReferenceLine y={cl.capienza} label={{ position: 'top',  value: 'Capienza aula', fill: 'blue', fontSize: 14 }} stroke="#333" strokeDasharray="4 2" />
+                                          <Area type="monotone" dataKey="presenze" name='Presenze' stroke="#bb2e29" fill="#bb2e29" dot={{ stroke: '#6b0808', strokeWidth: 1 }} >
+                                            <LabelList dataKey='presenze' position='top'/>
+                                          </Area>
+                                      </AreaChart>
+                                    </>
+                                  )
+                                })}
+                            </>
+                            }
+                            </>}
+                          handleClose={this.toggleChartsClassrooms}
+                          />}
+                      <input type='button' className='button' value='Statistiche insegnamento' onClick={this.toggleChartsTeaching} />
+                        { openChartsTeaching && <Popup
+                          content={
+                            <>
+                            {classrooms.length === 0 ? <div>Non si sono ancora svolte lezioni per questo insegnamento.</div> : 
+                              <>
+                                <h1>Lezioni in sintesi</h1>
+                                <div className="teaching_details_charts">
+                                  <BarChart
+                                    width={500}
+                                    height={500}
+                                    data={data2FinalMonths}
+                                    margin={{
+                                      top: 20,
+                                      right: 30,
+                                      left: 20,
+                                      bottom: 5,
+                                    }}
                                     >
-                                    {data3Filtered.map((entry, index) => (
-                                      <Cell key={`cell-${index}`} fill={entry.color} />
-                                      ))}
-                                  </Pie>
-                                </PieChart>
-                              </div>
-                            </div>
-                          </>
-                        }
-                        </>}
-                      handleClose={this.toggleChartsTeaching}
-                    />}
-                </div>
-                <div className='teaching_details_table_container'>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className='teaching_details_table_dates'>Data</th>
-                                <th className='teaching_details_table_times'>Orario</th>
-                                <th className='teaching_details_table_classrooms'>Luogo</th>
-                                <th className='teaching_details_table_attendances'>Presenze</th>
-                                <th className='teaching_details_table_status'>Stato</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredClassrooms.map((classroom, i) => {
-                                    const dateFormat = new Date(classroom.inizio);
-                                    const dateFormat2 = new Date(classroom.fine);
-                                    const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
-                                    const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
-                                    const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="month" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
+                                    <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
+                                    <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
+                                  </BarChart>
+                                  <div className="pie-chart-container">
+                                    <h3>Lezioni svolte: {count}</h3>
+                                    <PieChart width={500} height={500}>
+                                      <Pie
+                                        data={data3Filtered}
+                                        cx="50%"
+                                        cy="50%"
+                                        labelLine={false}
+                                        label={renderCustomizedLabel}
+                                        outerRadius={200}
+                                        fill="#8884d8"
+                                        dataKey="value"
+                                        >
+                                        {data3Filtered.map((entry, index) => (
+                                          <Cell key={`cell-${index}`} fill={entry.color} />
+                                          ))}
+                                      </Pie>
+                                    </PieChart>
+                                  </div>
+                                </div>
+                              </>
+                            }
+                            </>}
+                          handleClose={this.toggleChartsTeaching}
+                          />}
+                    </div>
+                    <div className='teaching_details_table_container'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th className='teaching_details_table_dates'>Data</th>
+                                    <th className='teaching_details_table_times'>Orario</th>
+                                    <th className='teaching_details_table_classrooms'>Luogo</th>
+                                    <th className='teaching_details_table_attendances'>Presenze</th>
+                                    <th className='teaching_details_table_status'>Stato</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredClassrooms.map((classroom, i) => {
+                                        const dateFormat = new Date(classroom.inizio);
+                                        const dateFormat2 = new Date(classroom.fine);
+                                        const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
+                                        const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                        const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                        
+                                        const classroom_attuale = classroomsLocal.filter((cl) => cl.id === classroom.aula_codice);
+                                        const capienza_attuale = classroom_attuale[0].capienza_aula;
+                                        
+                                        const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
+                                        let stato;
+                                        
+                                        if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
+                                          stato = 'attenzione';
+                                        } else if (capienzaCalcolata > capienza_attuale) {
+                                          stato = 'anomalia';
+                                        } else {
+                                          stato = 'ok';
+                                        }
 
-                                    const classroom_attuale = classroomsLocal.filter((cl) => cl.id === classroom.aula_codice);
-                                    const capienza_attuale = classroom_attuale[0].capienza_aula;
-
-                                    const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
-                                    let stato;
-                                    
-                                    if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
-                                      stato = 'attenzione';
-                                    } else if (capienzaCalcolata > capienza_attuale) {
-                                      stato = 'anomalia';
-                                    } else {
-                                      stato = 'ok';
-                                    }
-
-                                    switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
-                                    case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
-                                    case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
-                                    default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
-
-                                    return (
-                                      <tr key={i}>
-                                        <td>{data}</td>
-                                        <td>{ora_inizio + ' - ' + ora_fine}</td>
-                                        <td><Link className='toClassroom' to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></td>
-                                        <td>{capienzaCalcolata}</td>
-                                        <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
-                                      </tr>
-                                )})}
-                        </tbody>
-                                </table>
+                                        switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
+                                        case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
+                                        case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
+                                        default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
+                                        
+                                        return (
+                                          <tr key={i}>
+                                            <td>{data}</td>
+                                            <td>{ora_inizio + ' - ' + ora_fine}</td>
+                                            <td><Link className='toClassroom' to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></td>
+                                            <td>{capienzaCalcolata}</td>
+                                            <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
+                                          </tr>
+                                    )})}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
               </div>
             </>

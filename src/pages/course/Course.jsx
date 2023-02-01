@@ -188,9 +188,11 @@ class Course extends React.Component {
           </div>
         </div>
         <div className='course_container_list'>
-          <div className='course_container'>
-            <h1 className='course_title'>Corsi</h1>
-            <ul className='course_list'>{courses}</ul>
+          <div className="course_container_box">
+            <div className='course_container'>
+              <h1 className='course_title'>Corsi</h1>
+              <ul className='course_list'>{courses}</ul>
+            </div>
           </div>
         </div>
         </>
