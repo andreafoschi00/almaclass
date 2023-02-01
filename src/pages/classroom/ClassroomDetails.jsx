@@ -5,7 +5,8 @@ import './classroomDetails.css';
 import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import { Popup } from '../../containers';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 
@@ -465,17 +466,18 @@ class ClassroomDetails extends React.Component {
                         />}
                     </div>
                     <div className='classroom_details_table_container'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className='classroom_details_table_days'>Giorno</th>
-                                    <th className='classroom_details_table_times'>Orario</th>
-                                    <th className='classroom_details_table_teachings'>Insegnamento</th>
-                                    <th className='classroom_details_table_attendances'>Presenze</th>
-                                    <th className='classroom_details_table_status'>Stato</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                      <TableContainer sx={{ backgroundColor: '#f4f4f4'}} component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell className='classroom_details_table_days'>Giorno</TableCell>
+                                    <TableCell className='classroom_details_table_times'>Orario</TableCell>
+                                    <TableCell className='classroom_details_table_teachings'>Insegnamento</TableCell>
+                                    <TableCell align='center' className='classroom_details_table_attendances'>Presenze</TableCell>
+                                    <TableCell align='center' className='classroom_details_table_status'>Stato</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {filteredTeachings.map((teaching, i) => {
                                     const dateFormat = new Date(teaching.inizio);
                                     const dateFormat2 = new Date(teaching.fine);
@@ -499,16 +501,17 @@ class ClassroomDetails extends React.Component {
                                     default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
 
                                     return (
-                                      <tr key={i}>
-                                            <td>{data}</td>
-                                            <td>{ora_inizio + ' - ' + ora_fine}</td>
-                                            <td><Link className='toTeaching' to={'/teaching/details/?componente_id=' + teaching.componente_id}>{teaching.materia_descrizione}</Link></td>
-                                            <td>{capienzaCalcolata}</td>
-                                            <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
-                                        </tr>
+                                      <TableRow key={i}>
+                                        <TableCell>{data}</TableCell>
+                                        <TableCell>{ora_inizio + ' - ' + ora_fine}</TableCell>
+                                        <TableCell><Link className='toTeaching' to={'/teaching/details/?componente_id=' + teaching.componente_id}>{teaching.materia_descrizione}</Link></TableCell>
+                                        <TableCell align='center'>{capienzaCalcolata}</TableCell>
+                                        <TableCell align='center'><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></TableCell>
+                                      </TableRow>
                                     )})}
-                            </tbody>
-                        </table>
+                            </TableBody>
+                        </Table>
+                      </TableContainer>
                     </div>
                   </div>
                 </div>

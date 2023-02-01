@@ -1,9 +1,11 @@
-import { TextField } from '@mui/material';
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Popup } from '../../containers';
 import './courseDetails.css';
 import { CartesianGrid, XAxis, YAxis, Tooltip, BarChart, Bar, Legend, PieChart, Pie, Cell } from 'recharts';
+import { Table } from 'react-bootstrap';
 
 class CourseDetails extends React.Component {
     constructor(props) {
@@ -332,25 +334,27 @@ class CourseDetails extends React.Component {
                           />}
                       </div>
                       <div className='course_details_table_container'>
-                          <table>
-                              <thead>
-                                  <tr>
-                                      <th className='course_details_table_name'>Nome</th>
-                                      <th className='course_details_table_language'>Lingua</th>
-                                      <th className='course_details_table_teachers'>Docente</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
+                        <TableContainer sx={{ backgroundColor: '#f4f4f4'}} component={Paper}>
+                          <Table>
+                              <TableHead>
+                                  <TableRow>
+                                      <TableCell width='50%' className='course_details_table_name'>Nome</TableCell>
+                                      <TableCell width='50%' className='course_details_table_teachers'>Docente</TableCell>
+                                      <TableCell width='20%' className='course_details_table_language'>Lingua</TableCell>
+                                  </TableRow>
+                              </TableHead>
+                              <TableBody>
                                   {filteredTeachings.map((insegnamento, i) => {
                                     return (
-                                      <tr key={i}>
-                                              <td><Link className='toTeaching' to={'/teaching/details/?componente_id=' + insegnamento.componente_id}>{insegnamento.materia_descrizione}</Link></td>
-                                              <td>{insegnamento.lingua}</td>
-                                              <td>{insegnamento.docente_nome}</td>
-                                          </tr>
-                                      )})}
-                              </tbody>
-                          </table>
+                                      <TableRow key={i}>
+                                        <TableCell><Link className='toTeaching' to={'/teaching/details/?componente_id=' + insegnamento.componente_id}>{insegnamento.materia_descrizione}</Link></TableCell>
+                                        <TableCell>{insegnamento.docente_nome}</TableCell>
+                                        <TableCell>{insegnamento.lingua}</TableCell>
+                                      </TableRow>
+                                    )})}
+                              </TableBody>
+                          </Table>
+                        </TableContainer>
                       </div>
                   </div>
                 </div>

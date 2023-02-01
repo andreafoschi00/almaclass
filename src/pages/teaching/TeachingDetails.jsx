@@ -4,10 +4,12 @@ import './teachingDetails.css';
 import { MdOutlineDone, MdError } from 'react-icons/md';
 import { AiOutlineWarning } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import Paper from '@mui/material/Paper';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import { Popup } from '../../containers';
 import { Area, AreaChart, CartesianGrid, LabelList, ReferenceLine, XAxis, YAxis, Tooltip, BarChart, Bar, Legend, PieChart, Pie, Cell } from 'recharts';
+import { Table } from 'react-bootstrap';
 
 class TeachingDetails extends React.Component {
     constructor(props) {
@@ -409,24 +411,25 @@ class TeachingDetails extends React.Component {
                           />}
                     </div>
                     <div className='teaching_details_table_container'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th className='teaching_details_table_dates'>Data</th>
-                                    <th className='teaching_details_table_times'>Orario</th>
-                                    <th className='teaching_details_table_classrooms'>Luogo</th>
-                                    <th className='teaching_details_table_attendances'>Presenze</th>
-                                    <th className='teaching_details_table_status'>Stato</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                      <TableContainer sx={{ backgroundColor: '#f4f4f4'}} component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell width='30%' className='teaching_details_table_dates'>Data</TableCell>
+                                    <TableCell width='30%' className='teaching_details_table_times'>Orario</TableCell>
+                                    <TableCell width='30%' className='teaching_details_table_classrooms'>Luogo</TableCell>
+                                    <TableCell width='30%' align='center' className='teaching_details_table_attendances'>Presenze</TableCell>
+                                    <TableCell width='30%' align='center' className='teaching_details_table_status'>Stato</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {filteredClassrooms.map((classroom, i) => {
-                                        const dateFormat = new Date(classroom.inizio);
-                                        const dateFormat2 = new Date(classroom.fine);
-                                        const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
-                                        const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
-                                        const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
-                                        
+                                  const dateFormat = new Date(classroom.inizio);
+                                  const dateFormat2 = new Date(classroom.fine);
+                                  const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
+                                  const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                  const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
+                                  
                                         const classroom_attuale = classroomsLocal.filter((cl) => cl.id === classroom.aula_codice);
                                         const capienza_attuale = classroom_attuale[0].capienza_aula;
                                         
@@ -440,23 +443,24 @@ class TeachingDetails extends React.Component {
                                         } else {
                                           stato = 'ok';
                                         }
-
+                                        
                                         switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
                                         case 'attenzione': displayFirst = 'none'; displaySecond = 'inline'; displayThird = 'none'; break;
                                         case 'anomalia': displayFirst = 'none'; displaySecond = 'none'; displayThird = 'inline'; break; 
                                         default: displayFirst = 'none'; displaySecond = 'none'; displayThird = 'none'; break; }
                                         
                                         return (
-                                          <tr key={i}>
-                                            <td>{data}</td>
-                                            <td>{ora_inizio + ' - ' + ora_fine}</td>
-                                            <td><Link className='toClassroom' to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></td>
-                                            <td>{capienzaCalcolata}</td>
-                                            <td><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></td>
-                                          </tr>
+                                          <TableRow key={i}>
+                                            <TableCell>{data}</TableCell>
+                                            <TableCell>{ora_inizio + ' - ' + ora_fine}</TableCell>
+                                            <TableCell><Link className='toClassroom' to={'/classroom/details/?aula_codice=' + classroom.aula_codice}>{classroom.aula_nome}</Link></TableCell>
+                                            <TableCell align='center'>{capienzaCalcolata}</TableCell>
+                                            <TableCell align='center'><MdOutlineDone color='green' display={displayFirst} /><AiOutlineWarning color='orange' display={displaySecond}/><MdError color='red' display={displayThird}/></TableCell>
+                                          </TableRow>
                                     )})}
-                            </tbody>
-                        </table>
+                            </TableBody>
+                        </Table>
+                      </TableContainer>
                     </div>
                 </div>
               </div>

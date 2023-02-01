@@ -21,18 +21,6 @@
 .layout_container:has(.sidebar.close) .classroom_details_container {
     width: 85vw;
 }
-
-.classroom_details_table_container > table, .classroom_details_table_container th, .classroom_details_table_container td {
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    border-collapse: separate;
-}
-
-.classroom_details_table_container th, .classroom_details_table_container td{
-    padding: 1rem 0.5rem;
-}
-
 td svg {
     width: 24px;
     height: 24px;
@@ -78,11 +66,6 @@ td svg {
         width: 85vw;
     }
 
-    .classroom_details_table_container th, .classroom_details_table_container td{
-        padding: 0.25rem 0.15rem;
-        font-size: 14px;
-    }
-
     .classroom_details_buttons > input.button {
         padding: 0.50rem 1.50rem;
         font-size: 18px;
@@ -90,11 +73,6 @@ td svg {
 }
 
 @media screen and (max-width: 768px) {
-    .classroom_details_table_container th, .classroom_details_table_container td{
-        padding: 0.15rem 0.05rem;
-        font-size: 12px;
-    }
-
     .classroom_details_buttons > input.button {
         padding: 0.25rem 1.25rem;
         font-size: 14px;
@@ -114,11 +92,6 @@ td svg {
         z-index: -1;
         left: -20px;
         padding: 1.5rem 0.25rem 1rem 0.25rem;
-    }
-    
-    .classroom_details_table_container th, .classroom_details_table_container td{
-        padding: 0.05rem 0.025rem;
-        font-size: 10px;
     }
 
     td svg {
@@ -166,14 +139,6 @@ td svg {
         font-size: 16px;
     }
 
-    .classroom_details_table_container > table{
-        border-collapse: collapse;
-    }
-    
-    .classroom_details_table_container th, .classroom_details_table_container td{
-        padding: 0.05rem 0.025rem;
-        font-size: 10px;
-    }
 
     .classroom_details_buttons {
         gap: 1.5rem;
@@ -184,10 +149,5 @@ td svg {
     .classroom_details_container{
         position: static;
         width: 70vw;
-    }
-
-    .classroom_details_table_container th, .classroom_details_table_container td{
-        padding: 0;
-        font-size: 9px;
     }
 }
