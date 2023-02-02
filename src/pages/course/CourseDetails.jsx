@@ -131,9 +131,20 @@ class CourseDetails extends React.Component {
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
           return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-              {`${(percent * 100).toFixed(0)}%`}
-            </text>
+            <>
+              <defs>
+                <filter x="0" y="0" width="1" height="1" id="solid">
+                  <feFlood flood-color="black" result="bg" />
+                  <feMerge>
+                    <feMergeNode in="bg"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <text x={x} y={y} fill="white" filter='url(#solid)' textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                {`${(percent * 100).toFixed(0)}%`}
+              </text>
+            </>
           );
         };
 
@@ -221,17 +232,20 @@ class CourseDetails extends React.Component {
           { 
             name: 'Regolare',
             value: 0,
-            color: 'green'
+            stroke: 'green',
+            color: 'url(#pattern-regolare)'
           },
           { 
             name: 'A rischio',
             value: 0,
-            color: 'orange'
+            stroke: 'orange',
+            color: 'url(#pattern-rischio)'
           },
           { 
             name: 'Anomalia',
             value: 0,
-            color: 'red'
+            stroke: 'red',
+            color: 'url(#pattern-anomalia)'
           }
         ];
 
@@ -299,18 +313,62 @@ class CourseDetails extends React.Component {
                                       bottom: 5,
                                     }}
                                     >
+                                    <defs>
+                                      <pattern id="pattern-regolare" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse" >
+                                        <circle cx="10" cy="10" r="10" style={{ stroke: "none", fill: "green" }} />
+                                      </pattern>
+                                      <pattern id="pattern-rischio" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" >
+                                        <rect class="checker" x="0" width="10" height="10" y="0" style={{ fill: "orange" }}/>
+                                        <rect class="checker" x="20" width="10" height="10" y="20" style={{ fill: "orange" }}/>
+                                      </pattern>
+                                      <pattern id="pattern-anomalia" x="0" y="0" width="20" height="32" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
+                                        <g id="hexagon">
+                                          <path d="M168-127.1c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-0.3
+                                          c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5C167-127,167.5-127.1,168-127.1
+                                          L168-127.1z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
+                                          <path d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5
+                                          c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+                                          C111-222.4,111.5-222.5,112-222.5L112-222.5z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
+                                          <path d="M168-317.8c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-191
+                                          c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+                                          C167-317.7,167.5-317.8,168-317.8L168-317.8z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
+                                        </g>
+                                      </pattern>
+                                    </defs>
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis dataKey="month" />
                                     <YAxis />
                                     <Tooltip />
-                                    <Legend />
-                                    <Bar dataKey="reg" name='Regolare' stackId="a" fill="green" />
-                                    <Bar dataKey="ris" name='A rischio' stackId="a" fill="orange" />
-                                    <Bar dataKey="an" name='Anomalia' stackId="a" fill="red" />
+                                    <Legend iconSize={20} />
+                                    <Bar dataKey="reg" name='Regolare' stackId="a" stroke='green' fill="url(#pattern-regolare)" />
+                                    <Bar dataKey="ris" name='A rischio' stackId="a" stroke='orange' fill="url(#pattern-rischio)" />
+                                    <Bar dataKey="an" name='Anomalia' stackId="a" stroke='red' fill="url(#pattern-anomalia)" />
                                   </BarChart>
                                   <div className="pie-chart-container">
                                     <h3>Lezioni svolte: {count}</h3>
                                     <PieChart width={500} height={500}>
+                                      <defs>
+                                        <pattern id="pattern-regolare" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse" >
+                                          <circle cx="10" cy="10" r="10" style={{ stroke: "none", fill: "green" }} />
+                                        </pattern>
+                                        <pattern id="pattern-rischio" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" >
+                                          <rect class="checker" x="0" width="10" height="10" y="0" style={{ fill: "orange" }}/>
+                                          <rect class="checker" x="20" width="10" height="10" y="20" style={{ fill: "orange" }}/>
+                                        </pattern>
+                                        <pattern id="pattern-anomalia" x="0" y="0" width="20" height="32" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
+                                          <g id="hexagon">
+                                            <path d="M168-127.1c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-0.3
+                                            c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5C167-127,167.5-127.1,168-127.1
+                                            L168-127.1z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
+                                            <path d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5
+                                            c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+                                            C111-222.4,111.5-222.5,112-222.5L112-222.5z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
+                                            <path d="M168-317.8c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-191
+                                            c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
+                                            C167-317.7,167.5-317.8,168-317.8L168-317.8z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
+                                          </g>
+                                        </pattern>
+                                      </defs>
                                       <Pie
                                         data={data2Filtered}
                                         cx="50%"
@@ -322,7 +380,7 @@ class CourseDetails extends React.Component {
                                         dataKey="value"
                                         >
                                         {data2Filtered.map((entry, index) => (
-                                          <Cell key={`cell-${index}`} fill={entry.color} />
+                                          <Cell key={`cell-${index}`} stroke={entry.stroke} fill={entry.color} />
                                           ))}
                                       </Pie>
                                     </PieChart>
