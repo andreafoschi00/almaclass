@@ -31,6 +31,7 @@ class ClassroomDetails extends React.Component {
           dates: [null, null],
           openMap: false,
           openCharts: false,
+          filteredAttendances: []
         }
     }
 
@@ -106,9 +107,46 @@ class ClassroomDetails extends React.Component {
               .then(res => res.json())
               .then(
                 (result) => {
+                  console.dir(result)
+                  let dataTest;
+                  if(result.rilevazioni.length === 1) {
+                    dataTest = [];
+                  } else {
+                    dataTest = result.rilevazioni;
+                  }
+                  dataTest.forEach(f => {
+                    f.timestamp = new Date(f.timestamp*1000);
+                  });
+                  const dataTest2 = [];
+  
+                  dataTest.forEach(d => {
+                    const millis2 = dataTest.filter((d2) => d2.timestamp.getTime() === d.timestamp.getTime() && d2.camera !== d.camera);
+                    if(millis2.length > 0) {
+                      if(dataTest2.length > 0) {
+                        const foundDuplicate = dataTest2.filter((d3) => d3.timestamp.getTime() === millis2[0].timestamp.getTime());
+                        if(foundDuplicate.length === 0) {
+                          dataTest2.push({
+                            presenze: parseInt(d.presenze) + parseInt(millis2[0].presenze),
+                            timestamp: d.timestamp
+                          });
+                        }
+                      } else {
+                        dataTest2.push({
+                          presenze: parseInt(d.presenze) + parseInt(millis2[0].presenze),
+                          timestamp: d.timestamp
+                        });
+                      }
+                    } else {
+                      dataTest2.push({
+                        presenze: parseInt(d.presenze),
+                        timestamp: d.timestamp
+                      });
+                    }
+                  })
                   this.setState({
                     isLoaded: true,
                     classroomLocal: result,
+                    filteredAttendances: dataTest2
                   });
                 },
                 (error) => {
@@ -122,7 +160,7 @@ class ClassroomDetails extends React.Component {
 
       render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap, openCharts, dates } = this.state;
+        const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap, openCharts, dates, filteredAttendances } = this.state;
         const classroom = items[0];
 
         let filteredTeachings = teachings.filter((el) => {
@@ -135,21 +173,30 @@ class ClassroomDetails extends React.Component {
         });
 
         let data1=[], data2=[], data3=[];
+        
         teachings.forEach((t) => {
           const data_t_format = new Date(t.inizio);
           const data2_t_format = new Date (t.fine);
           const data_t = data_t_format.getDate()+ "/"+(data_t_format.getMonth()+1)+"/"+data_t_format.getFullYear();
-          const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10;
+          const selectAttendances = filteredAttendances.filter((d) => d.timestamp.getTime() >= data_t_format.getTime() && d.timestamp.getTime() <= data2_t_format.getTime());
+          let capienzaCalcolata = 0;
+          selectAttendances.forEach((s) => {
+            if(s.presenze > capienzaCalcolata) {
+              capienzaCalcolata = s.presenze;
+            }
+          });
           const diff = data2_t_format - data_t_format;
           const hours = new Date(diff).getHours() - 1;
           let reg=0, ris=0, an=0;
           
-          if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.95)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.15))) {
-            ris=1;
-          } else if (capienzaCalcolata > classroomLocal.capienza_aula) {
-            an=1;
-          } else {
-            reg=1;
+          if(capienzaCalcolata !== 0) {
+            if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.90)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.10))) {
+              an=1;
+            } else if (((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.85)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.25))) {
+              ris=1;
+            } else {
+              reg=1;
+            }
           }
 
           data1.push({
@@ -506,15 +553,24 @@ class ClassroomDetails extends React.Component {
                                     const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
                                     const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
                                     const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
-                                    const capienzaCalcolata = Math.floor(Math.random() * ((classroomLocal.capienza_aula + 5) - 10 + 1)) + 10;
+                                    const selectAttendances = filteredAttendances.filter((d) => d.timestamp.getTime() >= dateFormat.getTime() && d.timestamp.getTime() <= dateFormat2.getTime());
+                                    let capienzaCalcolata = 0;
+                                    selectAttendances.forEach((s) => {
+                                      if(s.presenze > capienzaCalcolata) {
+                                        capienzaCalcolata = s.presenze;
+                                      }
+                                    });
                                     let stato;
                                     
-                                    if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.95)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.15))) {
-                                      stato = 'attenzione';
-                                    } else if (capienzaCalcolata > classroomLocal.capienza_aula) {
-                                      stato = 'anomalia';
-                                    } else {
-                                      stato = 'ok';
+                                    if(capienzaCalcolata !== 0) 
+                                    {
+                                      if(((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.90)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.10))) {
+                                        stato = 'anomalia';
+                                      } else if (((capienzaCalcolata >= Math.floor(classroomLocal.capienza_aula*0.85)) && capienzaCalcolata <= classroomLocal.capienza_aula) || (capienzaCalcolata < Math.floor(classroomLocal.capienza_aula*0.25))) {
+                                        stato = 'attenzione';
+                                      } else {
+                                        stato = 'ok';
+                                      }
                                     }
 
                                     switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;
