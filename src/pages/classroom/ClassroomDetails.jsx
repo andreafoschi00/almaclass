@@ -23,7 +23,9 @@ class ClassroomDetails extends React.Component {
         this.state = {
           aula_codice: new URLSearchParams(window.location.search).get('aula_codice'),
           error: null,
-          isLoaded: false,
+          isLoaded1: false,
+          isLoaded2: false,
+          isLoaded3: false,
           items: [],
           teachings: [],
           classroomLocal: [],
@@ -64,13 +66,13 @@ class ClassroomDetails extends React.Component {
           .then(
             (result) => {
               this.setState({
-                isLoaded: true,
+                isLoaded1: true,
                 items: result.body.result.records
               });
             },
             (error) => {
               this.setState({
-                isLoaded: true,
+                isLoaded1: true,
                 error
               });
             }
@@ -86,13 +88,13 @@ class ClassroomDetails extends React.Component {
             .then(
               (result) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded2: true,
                   teachings: result.body.result.records,
                 });
               },
               (error) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded2: true,
                   error
                 });
               }
@@ -144,14 +146,14 @@ class ClassroomDetails extends React.Component {
                     }
                   })
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     classroomLocal: result,
                     filteredAttendances: dataTest2
                   });
                 },
                 (error) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     error
                   });
                 }
@@ -160,7 +162,7 @@ class ClassroomDetails extends React.Component {
 
       render() {
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, teachings, classroomLocal, searchText, openMap, openCharts, dates, filteredAttendances } = this.state;
+        const { error, isLoaded1, isLoaded2, isLoaded3, items, teachings, classroomLocal, searchText, openMap, openCharts, dates, filteredAttendances } = this.state;
         const classroom = items[0];
 
         let filteredTeachings = teachings.filter((el) => {
@@ -344,7 +346,7 @@ class ClassroomDetails extends React.Component {
 
         if (error) {
           return <div>Error: {error.message}</div>
-        } else if (!isLoaded) {
+        } else if (!isLoaded1 || !isLoaded2 || !isLoaded3) {
           return <div>Loading...</div>
         } else if (!classroom) {
           return <div>Error: no classroom found</div>

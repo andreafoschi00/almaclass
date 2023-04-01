@@ -8,7 +8,9 @@ class Teaching extends React.Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      isLoaded1: false,
+      isLoaded2: false,
+      isLoaded3: false,
       items: [],
       searchText: '',
       types: [],
@@ -30,13 +32,13 @@ class Teaching extends React.Component {
       .then(
         (result) => {
           this.setState({
-            isLoaded: true,
+            isLoaded1: true,
             items: result.body.result.records
           });
         },
         (error) => {
           this.setState({
-            isLoaded: true,
+            isLoaded1: true,
             error
           });
         }
@@ -52,13 +54,13 @@ class Teaching extends React.Component {
         .then(
           (result) => {
             this.setState({
-              isLoaded: true,
+              isLoaded2: true,
               types: result.body.result.records
             });
           },
           (error) => {
             this.setState({
-              isLoaded: true,
+              isLoaded2: true,
               error
             });
           }
@@ -74,13 +76,13 @@ class Teaching extends React.Component {
           .then(
             (result) => {
               this.setState({
-                isLoaded: true,
+                isLoaded3: true,
                 languages: result.body.result.records
               });
             },
             (error) => {
               this.setState({
-                isLoaded: true,
+                isLoaded3: true,
                 error
               });
             }
@@ -101,7 +103,7 @@ class Teaching extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items, searchText, languages, types, language, type } = this.state;
+    const { error, isLoaded1, isLoaded2, isLoaded3, items, searchText, languages, types, language, type } = this.state;
     
     const filteredTeachings = items.filter((el) => {
       if (searchText === '' && type === '' && language === '') {
@@ -130,7 +132,7 @@ class Teaching extends React.Component {
 
     if (error) {
       return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
+    } else if (!isLoaded1 || !isLoaded2 || !isLoaded3) {
       return <div>Loading...</div>;
     } else {
       return (

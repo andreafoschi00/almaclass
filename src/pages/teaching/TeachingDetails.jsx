@@ -17,7 +17,9 @@ class TeachingDetails extends React.Component {
         this.state = {
           componente_id: new URLSearchParams(window.location.search).get('componente_id'),
           error: null,
-          isLoaded: false,
+          isLoaded1: false,
+          isLoaded2: false,
+          isLoaded3: false,
           items: [],
           classrooms: [],
           classroomsLocal: [],
@@ -57,13 +59,13 @@ class TeachingDetails extends React.Component {
           .then(
             (result) => {
               this.setState({
-                isLoaded: true,
+                isLoaded1: true,
                 items: result.body.result.records
               });
             },
             (error) => {
               this.setState({
-                isLoaded: true,
+                isLoaded1: true,
                 error
               });
             }
@@ -79,13 +81,13 @@ class TeachingDetails extends React.Component {
             .then(
               (result) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded2: true,
                   classrooms: result.body.result.records
                 });
               },
               (error) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded2: true,
                   error
                 });
               }
@@ -101,13 +103,13 @@ class TeachingDetails extends React.Component {
               .then(
                 (result) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     classroomsLocal: result
                   });
                 },
                 (error) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     error
                   });
                 }
@@ -140,7 +142,7 @@ class TeachingDetails extends React.Component {
         };
 
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded, items, classrooms, searchText, classroomsLocal, dates, openChartsClassrooms, openChartsTeaching } = this.state;
+        const { error, isLoaded1, isLoaded2, isLoaded3, items, classrooms, searchText, classroomsLocal, dates, openChartsClassrooms, openChartsTeaching } = this.state;
         const teaching = items[0];
 
         let classroomsData = [], data2=[], count=0;
@@ -299,7 +301,7 @@ class TeachingDetails extends React.Component {
 
         if (error) {
             return <div>Error: {error.message}</div>;
-          } else if (!isLoaded) {
+          } else if (!isLoaded1 || !isLoaded2 || !isLoaded3) {
             return <div>Loading...</div>;
           } else if (!teaching) {
             return <div>Error: no teaching found</div>

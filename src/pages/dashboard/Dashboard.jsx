@@ -15,7 +15,9 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      isLoaded1: false,
+      isLoaded2: false,
+      isLoaded3: false,
       classrooms: [],
       searchText: '',
       date: toCorrectFormat(new Date()),
@@ -43,13 +45,11 @@ class Dashboard extends React.Component {
         .then(
           (result) => {
             this.setState({
-              isLoaded: true,
               lessons: result.body.result.records
             });
           },
           (error) => {
             this.setState({
-              isLoaded: true,
               error
             });
           }
@@ -69,13 +69,13 @@ class Dashboard extends React.Component {
       .then(
         (result) => {
           this.setState({
-            isLoaded: true,
+            isLoaded1: true,
             classrooms: result.body.result.records
           });
         },
         (error) => {
           this.setState({
-            isLoaded: true,
+            isLoaded1: true,
             error
           });
         }
@@ -91,13 +91,13 @@ class Dashboard extends React.Component {
         .then(
           (result) => {
             this.setState({
-              isLoaded: true,
+              isLoaded2: true,
               lessons: result.body.result.records
             });
           },
           (error) => {
             this.setState({
-              isLoaded: true,
+              isLoaded2: true,
               error
             });
           }
@@ -113,13 +113,13 @@ class Dashboard extends React.Component {
               .then(
                 (result) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     classroomsLocal: result
                   });
                 },
                 (error) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     error
                   });
                 }
@@ -127,7 +127,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, classrooms, date, lessons, classroomsLocal, searchText } = this.state;
+    const { error, isLoaded1, isLoaded2, isLoaded3, classrooms, date, lessons, classroomsLocal, searchText } = this.state;
 
     classrooms.forEach((c) => {
       if(lessons.filter(l => l.aula_codice === c.aula_codice).length === 0) {
@@ -161,7 +161,7 @@ class Dashboard extends React.Component {
 
     if(error) {
       return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
+    } else if (!isLoaded1 || !isLoaded2 || !isLoaded3) {
       return <div>Loading...</div>;
     } else {
       return(

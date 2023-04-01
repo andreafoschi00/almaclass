@@ -13,7 +13,10 @@ class CourseDetails extends React.Component {
         this.state = {
           corso_codice: new URLSearchParams(window.location.search).get('corso_codice'),
           error: null,
-          isLoaded: false,
+          isLoaded1: false,
+          isLoaded2: false,
+          isLoaded3: false,
+          isLoaded4: false,
           items: [],
           teachings: [],
           searchText: '',
@@ -44,13 +47,13 @@ class CourseDetails extends React.Component {
           .then(
             (result) => {
               this.setState({
-                isLoaded: true,
+                isLoaded1: true,
                 items: result.body.result.records
               });
             },
             (error) => {
               this.setState({
-                isLoaded: true,
+                isLoaded1: true,
                 error
               });
             }
@@ -66,13 +69,13 @@ class CourseDetails extends React.Component {
             .then(
               (result) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded2: true,
                   teachings: result.body.result.records
                 });
               },
               (error) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded2: true,
                   error
                 });
               }
@@ -88,13 +91,13 @@ class CourseDetails extends React.Component {
               .then(
                 (result) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     classroomsLocal: result
                   });
                 },
                 (error) => {
                   this.setState({
-                    isLoaded: true,
+                    isLoaded3: true,
                     error
                   });
                 }
@@ -110,13 +113,13 @@ class CourseDetails extends React.Component {
             .then(
               (result) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded4: true,
                   lessons: result.body.result.records
                 });
               },
               (error) => {
                 this.setState({
-                  isLoaded: true,
+                  isLoaded4: true,
                   error
                 });
               }
@@ -148,7 +151,7 @@ class CourseDetails extends React.Component {
           );
         };
 
-        const { error, isLoaded, items, teachings, searchText, openCharts, classroomsLocal, lessons } = this.state;
+        const { error, isLoaded1, isLoaded2, isLoaded3, isLoaded4, items, teachings, searchText, openCharts, classroomsLocal, lessons } = this.state;
         const course = items[0];
 
         let data = [], count = 0;
@@ -268,7 +271,7 @@ class CourseDetails extends React.Component {
 
         if (error) {
             return <div>Error: {error.message}</div>;
-          } else if (!isLoaded) {
+          } else if (!isLoaded1 || !isLoaded2 || !isLoaded3 || !isLoaded4) {
             return <div>Loading...</div>;
           } else if (!course) {
             return <div>Error: no course found</div>

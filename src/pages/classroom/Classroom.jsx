@@ -49,7 +49,8 @@ class Classroom extends React.Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      isLoaded1: false,
+      isLoaded2: false,
       items: [],
       searchText: '',
       floors: [],
@@ -73,13 +74,13 @@ class Classroom extends React.Component {
       .then(
         (result) => {
           this.setState({
-            isLoaded: true,
+            isLoaded1: true,
             items: result.body.result.records
           });
         },
         (error) => {
           this.setState({
-            isLoaded: true,
+            isLoaded1: true,
             error
           });
         }
@@ -95,13 +96,13 @@ class Classroom extends React.Component {
         .then(
           (result) => {
             this.setState({
-              isLoaded: true,
+              isLoaded2: true,
               floors: result.body.result.records
             });
           },
           (error) => {
             this.setState({
-              isLoaded: true,
+              isLoaded2: true,
               error
             });
           }
@@ -114,7 +115,7 @@ class Classroom extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items, searchText, floors, floor } = this.state;
+    const { error, isLoaded1, isLoaded2, items, searchText, floors, floor } = this.state;
     const classesNames = items.filter((item) => item.aula_nome.includes('AULA'));
     const laboratoriesNames = items.filter((item) => item.aula_nome.includes('LAB'));
 
@@ -162,7 +163,7 @@ class Classroom extends React.Component {
 
     if (error) {
       return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
+    } else if (!isLoaded1 || !isLoaded2) {
       return <div>Loading...</div>;
     } else {
       return (
