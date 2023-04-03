@@ -234,8 +234,6 @@ class TeachingDetails extends React.Component {
               presenze: capienzaCalcolata
             });
 
-            console.dir(rilevazioni)
-
             let reg=0, ris=0, an=0;
             
             if(capienzaCalcolata !== 0) {
