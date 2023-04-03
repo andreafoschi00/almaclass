@@ -22,7 +22,8 @@ class Dashboard extends React.Component {
       searchText: '',
       date: toCorrectFormat(new Date()),
       lessons: [],
-      classroomsLocal: []
+      classroomsLocal: [],
+      filteredClassroomsAttendances: []
     }
   }
 
@@ -44,8 +45,71 @@ class Dashboard extends React.Component {
         .then(res => res.json())
         .then(
           (result) => {
+            const lessons = result.body.result.records;
+            const lessonsFixed = [];
+            const filteredClassroomsAttendances = this.state.filteredClassroomsAttendances;
+            const date = new Date(e.toDate());
+            const classroomsLocal = this.state.classroomsLocal
+            lessons.forEach((l) => {
+              filteredClassroomsAttendances.forEach((f) => {
+                if(f.id === l.aula_codice) {
+                  if(f.rilevazioni.length > 0) {
+                  let actualDate = new Date('1970-01-01');
+                  let actualAttendances = 0;
+                  let actualUpdate = 0;
+                  f.rilevazioni.forEach((f2) => {
+                    if(f2.timestamp.getTime() <= date.getTime() && f2.timestamp.getTime() > actualDate.getTime()) {
+                      actualDate = f2.timestamp;
+                      actualAttendances = f2.presenze;
+                      actualUpdate = date.getTime() - f2.timestamp.getTime();
+                    }
+                  });
+                  let stato = "";
+                  let capienza_aula = 0;
+                  lessons.forEach(l2 => {
+                    classroomsLocal.forEach(cl => {
+                      if(l2.aula_codice === cl.id) {
+                        capienza_aula = cl.capienza_aula;
+                      }
+                    })
+                  });
+                  if(actualAttendances !== 0) {
+                    if(((actualAttendances >= Math.floor(capienza_aula*0.90)) && actualAttendances <= capienza_aula) || (actualAttendances < Math.floor(capienza_aula*0.10))) {
+                      stato='anomalia';
+                    } else if (((actualAttendances >= Math.floor(capienza_aula*0.85)) && actualAttendances <= capienza_aula) || (actualAttendances < Math.floor(capienza_aula*0.25))) {
+                      stato='attenzione';
+                    } else {
+                      stato='ok';
+                    }
+                  }
+                  lessonsFixed.push({
+                    aula_codice: l.aula_codice,
+                    aula_nome: l.aula_nome,
+                    componente_id: l.componente_id,
+                    inizio: l.inizio,
+                    fine: l.fine,
+                    materia_descrizione: l.materia_descrizione,
+                    presenze: actualAttendances,
+                    aggiornamento: actualUpdate,
+                    stato: stato
+                  });
+                } else {
+                  lessonsFixed.push({
+                    aula_codice: l.aula_codice,
+                    aula_nome: l.aula_nome,
+                    componente_id: l.componente_id,
+                    inizio: l.inizio,
+                    fine: l.fine,
+                    materia_descrizione: l.materia_descrizione,
+                    presenze: 0,
+                    aggiornamento: 'sconosciuto'
+                  });
+                }
+              }
+              })
+            })
             this.setState({
-              lessons: result.body.result.records
+              lessons: lessonsFixed
             });
           },
           (error) => {
@@ -112,9 +176,52 @@ class Dashboard extends React.Component {
               .then(res => res.json())
               .then(
                 (result) => {
+                  const filter = [];
+                  result.forEach(r => {
+                    let dataTest;
+                    if(r.rilevazioni.length === 1) {
+                      dataTest = [];
+                    } else {
+                      dataTest = r.rilevazioni;
+                    }
+                    dataTest.forEach(f => {
+                      f.timestamp = new Date(f.timestamp*1000);
+                    });
+                    const dataTest2 = [];
+    
+                    dataTest.forEach(d => {
+                      const millis2 = dataTest.filter((d2) => d2.timestamp.getTime() === d.timestamp.getTime() && d2.camera !== d.camera);
+                      if(millis2.length > 0) {
+                        if(dataTest2.length > 0) {
+                          const foundDuplicate = dataTest2.filter((d3) => d3.timestamp.getTime() === millis2[0].timestamp.getTime());
+                          if(foundDuplicate.length === 0) {
+                            dataTest2.push({
+                              presenze: parseInt(d.presenze) + parseInt(millis2[0].presenze),
+                              timestamp: d.timestamp
+                            });
+                          }
+                        } else {
+                          dataTest2.push({
+                            presenze: parseInt(d.presenze) + parseInt(millis2[0].presenze),
+                            timestamp: d.timestamp
+                          });
+                        }
+                      } else {
+                        dataTest2.push({
+                          presenze: parseInt(d.presenze),
+                          timestamp: d.timestamp
+                        });
+                      }
+                    });
+                    filter.push( {
+                      id: r.id,
+                      rilevazioni: dataTest2
+                    })
+                  });
                   this.setState({
                     isLoaded3: true,
-                    classroomsLocal: result
+                    classroomsLocal: result,
+                    filteredClassroomsAttendances: filter
                   });
                 },
                 (error) => {
@@ -137,7 +244,9 @@ class Dashboard extends React.Component {
           componente_id: 0,
           inizio: '',
           fine: '',
-          materia_descrizione: 'Nessuna lezione'
+          materia_descrizione: 'Nessuna lezione',
+          presenze: 0,
+          aggiornamento: 'sconosciuto'
         })
       }
     });
@@ -149,7 +258,7 @@ class Dashboard extends React.Component {
         }
       })
     });
-
+    
     let filteredLessons = lessons.filter((le) => {
       if (searchText === '') {
         return le;

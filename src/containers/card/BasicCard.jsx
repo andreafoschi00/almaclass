@@ -35,6 +35,20 @@ const BasicCard = props => {
   const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
   const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
 
+  const update = props.props.aggiornamento/1000;
+  let updateString = "";
+  if(update < 60) {
+    updateString = update + " sec. fa";
+  } else if (update > 60 && update < 3600){
+    updateString = Math.floor(update/60) + " min. fa";
+  } else if (update > 3600 && update < 86400){
+    updateString = Math.floor(update/3600) + " ore fa";
+  } else if (update > 86400){
+    updateString = "più di 24 ore fa";
+  } else {
+    updateString = "sconosciuto";
+  }
+
   let font_aula;
   if(props.props.aula_nome.length > 16) {
     font_aula = 24;
@@ -81,12 +95,12 @@ const BasicCard = props => {
               Presenze
             </Typography>
             <Typography sx={{ fontSize: {xs: 35, md: 40} }}>
-              {/*props.props.presenze*/}0
+              {props.props.presenze}
             </Typography>
           </Typography>
         </Typography>
         <Typography sx={{ fontSize: {xs: 12, md: 16}, textAlign: 'center'}} color='text.secondary'>
-            Ultimo aggiornamento: {props.props.aggiornamento}
+            Ultimo aggiornamento: {updateString}
         </Typography>
       </CardContent>
     </Card>
