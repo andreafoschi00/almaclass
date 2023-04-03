@@ -26,7 +26,8 @@ class TeachingDetails extends React.Component {
           searchText: '',
           dates: [null, null],
           openChartsClassrooms: false,
-          openChartsTeaching: false
+          openChartsTeaching: false,
+          filteredClassroomsAttendances: []
         }
     }
 
@@ -102,9 +103,52 @@ class TeachingDetails extends React.Component {
               .then(res => res.json())
               .then(
                 (result) => {
+                  const filter = [];
+                  result.forEach(r => {
+                    let dataTest;
+                    if(r.rilevazioni.length === 1) {
+                      dataTest = [];
+                    } else {
+                      dataTest = r.rilevazioni;
+                    }
+                    dataTest.forEach(f => {
+                      f.timestamp = new Date(f.timestamp*1000);
+                    });
+                    const dataTest2 = [];
+    
+                    dataTest.forEach(d => {
+                      const millis2 = dataTest.filter((d2) => d2.timestamp.getTime() === d.timestamp.getTime() && d2.camera !== d.camera);
+                      if(millis2.length > 0) {
+                        if(dataTest2.length > 0) {
+                          const foundDuplicate = dataTest2.filter((d3) => d3.timestamp.getTime() === millis2[0].timestamp.getTime());
+                          if(foundDuplicate.length === 0) {
+                            dataTest2.push({
+                              presenze: parseInt(d.presenze) + parseInt(millis2[0].presenze),
+                              timestamp: d.timestamp
+                            });
+                          }
+                        } else {
+                          dataTest2.push({
+                            presenze: parseInt(d.presenze) + parseInt(millis2[0].presenze),
+                            timestamp: d.timestamp
+                          });
+                        }
+                      } else {
+                        dataTest2.push({
+                          presenze: parseInt(d.presenze),
+                          timestamp: d.timestamp
+                        });
+                      }
+                    });
+                    filter.push( {
+                      id: r.id,
+                      rilevazioni: dataTest2
+                    })
+                  });
                   this.setState({
                     isLoaded3: true,
-                    classroomsLocal: result
+                    classroomsLocal: result,
+                    filteredClassroomsAttendances: filter
                   });
                 },
                 (error) => {
@@ -142,7 +186,7 @@ class TeachingDetails extends React.Component {
         };
 
         let displayFirst, displaySecond, displayThird;
-        const { error, isLoaded1, isLoaded2, isLoaded3, items, classrooms, searchText, classroomsLocal, dates, openChartsClassrooms, openChartsTeaching } = this.state;
+        const { error, isLoaded1, isLoaded2, isLoaded3, items, classrooms, searchText, classroomsLocal, dates, openChartsClassrooms, openChartsTeaching, filteredClassroomsAttendances } = this.state;
         const teaching = items[0];
 
         let classroomsData = [], data2=[], count=0;
@@ -161,22 +205,47 @@ class TeachingDetails extends React.Component {
           }
         });
 
+        const rilevazioni = [];
+
         classrooms.forEach(c => {
           const data_t_format = new Date(c.inizio);
+          const data2_t_format = new Date (c.fine);
           const data_t = data_t_format.getDate()+ "/"+(data_t_format.getMonth()+1)+"/"+data_t_format.getFullYear();
           const classroom_attuale = classroomsLocal.filter((cl) => cl.id === c.aula_codice);
           if(classroom_attuale.length > 0) {
             count++;
             const capienza_attuale = classroom_attuale[0].capienza_aula;
-            const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
+            let capienzaCalcolata = 0;
+            filteredClassroomsAttendances.forEach((f) => {
+              if(f.id === classroom_attuale[0].id) {
+                const selectAttendances = f.rilevazioni.filter((d) => d.timestamp.getTime() >= data_t_format.getTime() && d.timestamp.getTime() <= data2_t_format.getTime());
+                selectAttendances.forEach((f2) => {
+                  if(f2.presenze > capienzaCalcolata) {
+                    capienzaCalcolata = f2.presenze;
+                  }
+                })
+              }
+            })
+
+            rilevazioni.push({
+              aula_nome: classroom_attuale[0].nome_aula,
+              inizio: data_t_format,
+              fine: data2_t_format,
+              presenze: capienzaCalcolata
+            });
+
+            console.dir(rilevazioni)
+
             let reg=0, ris=0, an=0;
             
-            if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
-              ris=1;
-            } else if (capienzaCalcolata > capienza_attuale) {
-              an=1;
-            } else {
-              reg=1;
+            if(capienzaCalcolata !== 0) {
+              if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.90)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.10))) {
+                an=1;
+              } else if (((capienzaCalcolata >= Math.floor(capienza_attuale*0.85)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.25))) {
+                ris=1;
+              } else {
+                reg=1;
+              }
             }
             
             data2.push({
@@ -196,10 +265,13 @@ class TeachingDetails extends React.Component {
               const data = dateFormat.getDate()+ "/"+(dateFormat.getMonth()+1)+"/"+dateFormat.getFullYear();
               const ora_inizio = dateFormat.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
               const ora_fine = dateFormat2.getHours()+":"+String(dateFormat.getMinutes()).padStart(2, '0');
-              const capienza_attuale = c2.capienza;
-              c2.lezioni.push({
-                data: data + ' ' + ora_inizio + '-' + ora_fine,
-                presenze: Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10
+              rilevazioni.forEach((r) => {
+                if(r.aula_nome === c.aula_nome && r.inizio.getTime() === dateFormat.getTime() && r.fine.getTime() === dateFormat2.getTime()) {
+                  c2.lezioni.push({
+                    data: data + ' ' + ora_inizio + '-' + ora_fine,
+                    presenze: r.presenze
+                  })
+                }
               })
             }
           })
@@ -493,15 +565,27 @@ class TeachingDetails extends React.Component {
                                         const classroom_attuale = classroomsLocal.filter((cl) => cl.id === classroom.aula_codice);
                                         const capienza_attuale = classroom_attuale[0].capienza_aula;
                                         
-                                        const capienzaCalcolata = Math.floor(Math.random() * ((capienza_attuale + 5) - 10 + 1)) + 10;
+                                        let capienzaCalcolata = 0;
+                                        filteredClassroomsAttendances.forEach((f) => {
+                                          if(f.id === classroom_attuale[0].id) {
+                                            const selectAttendances = f.rilevazioni.filter((d) => d.timestamp.getTime() >= dateFormat.getTime() && d.timestamp.getTime() <= dateFormat2.getTime());
+                                            selectAttendances.forEach((f2) => {
+                                              if(f2.presenze > capienzaCalcolata) {
+                                                capienzaCalcolata = f2.presenze;
+                                              }
+                                            })
+                                          }
+                                        })
                                         let stato;
                                         
-                                        if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.95)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.15))) {
-                                          stato = 'attenzione';
-                                        } else if (capienzaCalcolata > capienza_attuale) {
-                                          stato = 'anomalia';
-                                        } else {
-                                          stato = 'ok';
+                                        if(capienzaCalcolata !== 0) {
+                                          if(((capienzaCalcolata >= Math.floor(capienza_attuale*0.90)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.10))) {
+                                            stato='anomalia';
+                                          } else if (((capienzaCalcolata >= Math.floor(capienza_attuale*0.85)) && capienzaCalcolata <= capienza_attuale) || (capienzaCalcolata < Math.floor(capienza_attuale*0.25))) {
+                                            stato='attenzione';
+                                          } else {
+                                            stato='ok';
+                                          }
                                         }
                                         
                                         switch(stato){ case 'ok': displayFirst = 'inline'; displaySecond = 'none'; displayThird = 'none'; break;

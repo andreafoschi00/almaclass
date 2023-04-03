@@ -109,7 +109,6 @@ class ClassroomDetails extends React.Component {
               .then(res => res.json())
               .then(
                 (result) => {
-                  console.dir(result)
                   let dataTest;
                   if(result.rilevazioni.length === 1) {
                     dataTest = [];
@@ -144,7 +143,7 @@ class ClassroomDetails extends React.Component {
                         timestamp: d.timestamp
                       });
                     }
-                  })
+                  });
                   this.setState({
                     isLoaded3: true,
                     classroomLocal: result,
