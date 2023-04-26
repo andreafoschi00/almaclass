@@ -188,7 +188,7 @@ class CourseDetails extends React.Component {
                   </feMerge>
                 </filter>
               </defs>
-              <text x={x} y={y} fill="white" filter='url(#solid)' textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+              <text x={x} y={y} fill="white" fontSize={"30px"} filter='url(#solid)' textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
                 {`${(percent * 100).toFixed(0)}%`}
               </text>
             </>
@@ -377,25 +377,18 @@ class CourseDetails extends React.Component {
                                     }}
                                     >
                                     <defs>
-                                      <pattern id="pattern-regolare" x="10" y="10" width="20" height="20" patternUnits="userSpaceOnUse" >
-                                        <circle cx="10" cy="10" r="10" style={{ stroke: "none", fill: "green" }} />
+                                      <pattern id="pattern-regolare" patternUnits='userSpaceOnUse' width='40' height='40' patternTransform='scale(1) rotate(0)' >
+                                      <path d='M20 0L0 10v10l20-10zm0 10v10l20 10V20z'  stroke-width='1' stroke='none' fill='hsla(122, 39%, 49%, 1)'/>
+                                      <path d='M20-10V0l20 10V0zm0 30L0 30v10l20-10zm0 10v10l20 10V40z'  stroke-width='1' stroke='none' fill='hsla(122, 39%, 49%, 1)'/>
                                       </pattern>
-                                      <pattern id="pattern-rischio" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" >
-                                        <rect class="checker" x="0" width="10" height="10" y="0" style={{ fill: "orange" }}/>
-                                        <rect class="checker" x="20" width="10" height="10" y="20" style={{ fill: "orange" }}/>
+                                      <pattern id="pattern-rischio" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse" >
+                                        <rect class="checker" x="0" width="5" height="5" y="0" style={{ fill: "orange" }}/>
+                                        <rect class="checker" x="5" width="5" height="5" y="5" style={{ fill: "orange" }}/>
                                       </pattern>
-                                      <pattern id="pattern-anomalia" x="0" y="0" width="20" height="32" patternUnits="userSpaceOnUse" viewBox="56 -254 112 190">
-                                        <g id="hexagon">
-                                          <path d="M168-127.1c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-0.3
-                                          c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5C167-127,167.5-127.1,168-127.1
-                                          L168-127.1z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
-                                          <path d="M112-222.5c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2l-53.4,30.5
-                                          c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
-                                          C111-222.4,111.5-222.5,112-222.5L112-222.5z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
-                                          <path d="M168-317.8c0.5,0,1,0.1,1.3,0.3l53.4,30.5c0.7,0.4,1.3,1.4,1.3,2.2v61c0,0.8-0.6,1.8-1.3,2.2L169.3-191
-                                          c-0.7,0.4-1.9,0.4-2.6,0l-53.4-30.5c-0.7-0.4-1.3-1.4-1.3-2.2v-61c0-0.8,0.6-1.8,1.3-2.2l53.4-30.5
-                                          C167-317.7,167.5-317.8,168-317.8L168-317.8z" style={{ fill: "white", stroke: "red", strokeWidth: "20" }}/>
-                                        </g>
+                                      <pattern id="pattern-anomalia" patternUnits='userSpaceOnUse' width='60' height='30' patternTransform='scale(1) rotate(0)' >
+                                      <rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 1)'/>
+                                      <path d='M1-6.5v13h28v-13H1zm15 15v13h28v-13H16zm-15 15v13h28v-13H1z'  stroke-width='1' stroke='none' fill='hsla(4, 90%, 58%, 1)'/>
+                                      <path d='M31-6.5v13h28v-13H31zm-45 15v13h28v-13h-28zm60 0v13h28v-13H46zm-15 15v13h28v-13H31z'  stroke-width='1' stroke='none' fill='hsla(4, 90%, 58%, 1)'/>
                                       </pattern>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" />
